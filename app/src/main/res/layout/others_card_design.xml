@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="8dp">
+
+<RelativeLayout
+    android:layout_width="395dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="05dp"
+    android:layout_marginRight="20dp"
+    android:background="@color/white"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/courseImage02"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/common_google_signin_btn_icon_dark_normal"
+        android:scaleType="centerCrop">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/courseTitle02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hehehehe"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/courseImage02"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="05dp"
+        android:padding="10dp"
+       >
+    </TextView>
+
+    <TextView
+        android:id="@+id/courseDesc02"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:text="dflkjgkdfjglkdjglkdjglkjg"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_below="@+id/courseTitle02"
+        android:layout_toRightOf="@id/courseImage02"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="0dp"
+       >
+    </TextView>
+
+</RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

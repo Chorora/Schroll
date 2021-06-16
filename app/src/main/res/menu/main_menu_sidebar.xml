@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile" />
+    </group>
+
+
+    <item android:title="Course">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_home"
+                    android:title="Home" />
+
+
+                <item
+                    android:id="@+id/nav_homeworks"
+                    android:title="Homeworks" />
+
+
+                <item
+                    android:id="@+id/nav_grades"
+                    android:title="Grades" />
+
+
+                <item
+                    android:id="@+id/nav_time_table"
+                    android:icon="@drawable/time_table_iceon"
+                    android:title="Time table" />
+
+
+                <item
+                    android:id="@+id/nav_announcements"
+                    android:title="Announcements" />
+            </group>
+        </menu>
+    </item>
+
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_log_out"
+            android:title="Logout" />
+
+    </group>
+
+</menu>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "407756075827",
+    "project_id": "memoire-l3-school",
+    "storage_bucket": "memoire-l3-school.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407756075827:android:ae74dcd2f58f7432d44446",
+        "android_client_info": {
+          "package_name": "com.example.schroll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407756075827-mmmh9b91s9226ncq9ngejvv5sjfeln85.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.schroll",
+            "certificate_hash": "65cb5582e673aa61e95af9ad2168859986d68aff"
+          }
+        },
+        {
+          "client_id": "407756075827-l6s2muf4tnr3agn837q0hdb82d469uc6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARfyh5oBN_-1LlzxtSKuUCwZhhKiS7WHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407756075827-l6s2muf4tnr3agn837q0hdb82d469uc6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
