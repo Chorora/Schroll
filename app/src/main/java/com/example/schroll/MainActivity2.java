@@ -25,11 +25,17 @@ public class MainActivity2 extends AppCompatActivity {
         intent.putExtra(EXTRA_SPECIALTY1, specialty);
         startActivity(intent);
     }
+
     public void onUpdateClick(View v){
         Intent intent = new Intent(getApplicationContext(), chooseClassroomActivity.class);
         intent.putExtra(EXTRA_SPECIALTY2, specialty);
         startActivity(intent);
     }
 
+    public void onUploadClick(View v){
+        Intent intent = new Intent(getApplicationContext(), chooseClassroomActivity2.class);
+        intent.putExtra(EXTRA_SPECIALTY2, specialty);
+        startActivity(intent);
+    }
 
 }

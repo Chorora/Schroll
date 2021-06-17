@@ -1,10 +1,8 @@
 package com.example.education;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,9 +17,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.shockwave.pdfium.PdfDocument;
-import static com.example.education.pdf_list.videoArrayList;
 
 import java.util.List;
+
+import static com.example.education.pdf_list.videoArrayList;
 public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteListener,OnPageChangeListener {
     public static final String SAMPLE_FILE = "android_tutorial.pdf"; //your file path
     PDFView pdfView;

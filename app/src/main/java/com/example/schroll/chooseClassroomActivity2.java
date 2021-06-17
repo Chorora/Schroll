@@ -14,7 +14,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-public class chooseClassroomActivity extends AppCompatActivity {
+public class chooseClassroomActivity2 extends AppCompatActivity {
 
     TextView classRoom1, classRoom2, classRoom3, classRoom4;
     FirebaseFirestore fStore;
@@ -22,16 +22,18 @@ public class chooseClassroomActivity extends AppCompatActivity {
     String classRoomX1, classRoomX2, classRoomX3, classRoomX4, course;
     public static final String EXTRA_CLASSROOM = "EXTRA_CLASSROOM";
     public static final String EXTRA_COURSE = "EXTRA_COURSE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_classroom);
+        setContentView(R.layout.activity_choose_classroom2);
+
         fStore = FirebaseFirestore.getInstance();
 
-        classRoom1 = findViewById(R.id.classRoom1);
-        classRoom2 = findViewById(R.id.classRoom2);
-        classRoom3 = findViewById(R.id.classRoom3);
-        classRoom4 = findViewById(R.id.classRoom4);
+        classRoom1 = findViewById(R.id.ClassRoom1);
+        classRoom2 = findViewById(R.id.ClassRoom2);
+        classRoom3 = findViewById(R.id.ClassRoom3);
+        classRoom4 = findViewById(R.id.ClassRoom4);
         class1Ref = fStore.collection("Classrooms").document("Class 01");
         class2Ref = fStore.collection("Classrooms").document("Class 02");
         class3Ref = fStore.collection("Classrooms").document("Class 03");
@@ -51,10 +53,8 @@ public class chooseClassroomActivity extends AppCompatActivity {
         class2Ref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot != null) {
-                    classRoom2.setText(documentSnapshot.getString("Name"));
-                    classRoomX2 = documentSnapshot.getString("Code");
-                }
+                classRoom2.setText(documentSnapshot.getString("Name"));
+                classRoomX2 = documentSnapshot.getString("Code");
             }
         });
 
@@ -76,30 +76,31 @@ public class chooseClassroomActivity extends AppCompatActivity {
     }
 
     public void onClass1Click(View v){
-        Intent intent = new Intent(this, editHomeWorkActivity.class);
+        Intent intent = new Intent(this, uploadCourseActivity.class);
         intent.putExtra(EXTRA_CLASSROOM, classRoomX1);
         intent.putExtra(EXTRA_COURSE, course);
         startActivity(intent);
     }
 
     public void onClass2Click (View v){
-        Intent intent = new Intent(this, editHomeWorkActivity.class);
+        Intent intent = new Intent(this, uploadCourseActivity.class);
         intent.putExtra(EXTRA_CLASSROOM, classRoomX2);
         intent.putExtra(EXTRA_COURSE, course);
         startActivity(intent);
     }
 
     public void onClass3Click (View v){
-        Intent intent = new Intent(this, editHomeWorkActivity.class);
+        Intent intent = new Intent(this, uploadCourseActivity.class);
         intent.putExtra(EXTRA_CLASSROOM, classRoomX3);
         intent.putExtra(EXTRA_COURSE, course);
         startActivity(intent);
     }
 
     public void onClass4Click (View v){
-        Intent intent = new Intent(this, editHomeWorkActivity.class);
+        Intent intent = new Intent(this, uploadCourseActivity.class);
         intent.putExtra(EXTRA_CLASSROOM, classRoomX4);
         intent.putExtra(EXTRA_COURSE, course);
         startActivity(intent);
     }
+
 }

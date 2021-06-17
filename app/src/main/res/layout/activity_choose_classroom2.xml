@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".chooseClassroomActivity">
+    tools:context=".chooseClassroomActivity2">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView8"
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.314">
 
         <TextView
-            android:id="@+id/classRoom1"
+            android:id="@+id/ClassRoom1"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginLeft="17sp"
@@ -51,7 +51,7 @@
         app:layout_constraintVertical_bias="0.314">
 
         <TextView
-            android:id="@+id/classRoom2"
+            android:id="@+id/ClassRoom2"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginLeft="17sp"
@@ -81,7 +81,7 @@
         app:layout_constraintVertical_bias="0.533">
 
         <TextView
-            android:id="@+id/classRoom3"
+            android:id="@+id/ClassRoom3"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginLeft="17sp"
@@ -110,7 +110,7 @@
         app:layout_constraintVertical_bias="0.533">
 
         <TextView
-            android:id="@+id/classRoom4"
+            android:id="@+id/ClassRoom4"
             android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_marginLeft="17sp"
@@ -137,4 +137,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.114" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
