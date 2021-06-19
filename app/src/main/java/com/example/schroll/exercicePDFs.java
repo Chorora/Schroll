@@ -51,7 +51,6 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
         mHandler = new Handler();
         handler = new Handler();
         title = pdf_list.documentArrayList.get(pdf_index).getData();
-        pdfView = (PDFView) findViewById(R.id.pdfView);
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
@@ -108,6 +107,7 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
     private DocumentReference student6 = db.document("Students/feTUxVKRb5VXontwQITqnqM4Jhk2/");
     private DocumentReference student7 = db.document("Students/u1pYHOLazLSstHINna0mYt4yjo72/");
     private DocumentReference student8 = db.document("Students/vPMoWARINdMeNlIqGA6AY0NEiqf1/");
+
     public void cutName(String title){
 
         title = title.substring(0,title.length() - 4 );

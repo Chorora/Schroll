@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Schroll">
-        <activity android:name=".uploadCourseActivity"></activity>
+        <activity android:name=".courseViewActivity"></activity>
+        <activity android:name=".coursesViewActivity" />
+        <activity android:name=".uploadCourseActivity" />
         <activity android:name=".chooseClassroomActivity2" />
         <activity android:name=".chooseClassroomActivity" />
         <activity android:name=".editHomeWorkActivity" />

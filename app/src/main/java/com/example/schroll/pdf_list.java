@@ -26,8 +26,9 @@ public class pdf_list extends AppCompatActivity {
     RecyclerView recyclerView;
     FirebaseStorage documents;
     String uri, course;
-    int j;
     ProgressBar progress;
+    int j;
+
 
     public static final String EXTRA_TITLE = "com.example.Application.schroll.EXTRA_TITLE";
     public static final String EXTRA_COURSE = "EXTRA_COURSE";

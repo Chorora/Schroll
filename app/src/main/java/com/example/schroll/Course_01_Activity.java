@@ -23,19 +23,22 @@ import java.util.Map;
 public class Course_01_Activity extends AppCompatActivity {
 
     private static final String TAG = "Course_01_Activity";
-    public String Year;
+    public String Year, Classroom, classCode;
     private Map chapter01Map, chapter02Map, chapter03Map;
 
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
     String in = "";
-    String userID2, chapter01Desc = "", chapter02Desc = "", chapter03Desc = "";
+    String userID2, chapter01Desc = "", chapter02Desc = "", chapter03Desc = "", courseName;
 
     TextView Chapter01, Chapter01Description, Chapter02, Chapter02Description, Chapter03, Chapter03Description;
     TextView Name, Description;
     ImageView courseImage;
 
     public static final int EXTRA_NUMBER = 5;
+    public static final String EXTRA_COURSE = "EXTRA_COURSE";
+    public static final String EXTRA_CLASSCODE = "EXTRA_CLASSCODE";
+
     int courseNumberX = -5;
 
     @Override
@@ -94,6 +97,8 @@ public class Course_01_Activity extends AppCompatActivity {
                     classroomFinder classroom = documentSnapshot.toObject(classroomFinder.class);
                     assert classroom != null;
                     Year = classroom.getYear();
+                    Classroom = classroom.getClassroom();
+                    classCode = "Class " +Year +"_" +Classroom;
                     displayCourseInfo(Year);
                 }
             }
@@ -108,7 +113,10 @@ public class Course_01_Activity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 Name.setText(documentSnapshot.getString("Name"));
+                courseName = documentSnapshot.getString("Name");
+                courseName = courseName.substring(0, courseName.length() - 4);
                 Description.setText(documentSnapshot.getString("Description"));
+
 
                 if (documentSnapshot.contains("Chapitre 01")) {
                     Chapter01.setText(documentSnapshot.getString("Chapitre 01"));
@@ -193,4 +201,12 @@ public class Course_01_Activity extends AppCompatActivity {
         intent.putExtra(String.valueOf(EXTRA_NUMBER), N);
         startActivity(intent);
     }
+
+    public void viewLessons(View v){
+        Intent intent = new Intent(this,coursesViewActivity.class);
+        intent.putExtra(String.valueOf(EXTRA_COURSE), courseName);
+        intent.putExtra(String.valueOf(EXTRA_CLASSCODE), classCode);
+        startActivity(intent);
+    }
+
 }

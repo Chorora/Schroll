@@ -38,7 +38,7 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
         pdf_index = getIntent().getIntExtra("pos" , 0);
         mHandler = new Handler();
         handler = new Handler();
-       // displayFromAsset(documentArrayList.get(pdf_index).getData());
+       // displayFromAsset(documentsArrayList.get(pdf_index).getData());
         pdfView = (PDFView) findViewById(R.id.pdfView);
       FirebaseStorage mFirebaseStorage=FirebaseStorage.getInstance();
         StorageReference mmFirebaseStorageRef=mFirebaseStorage.getReference().child("pdfs");
