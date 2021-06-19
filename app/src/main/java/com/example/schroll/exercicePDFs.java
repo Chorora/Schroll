@@ -14,12 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -31,16 +35,18 @@ import java.util.Map;
 
 public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteListener,OnPageChangeListener {
     private static final String KEY_GRADE ="Grade";
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference students = db.collection("Students");
     PDFView pdfView;
     Integer pageNumber = 0;
-    String pdfFileName, title, userID, course;
-    int pdf_index;
     Handler mHandler,handler;
     EditText gradeHW;
     TextView textView;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     DocumentReference userRef;
+    String studentID, title, userID, course;
+    int pdf_index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +82,6 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
                 Toast.makeText(getApplicationContext(),"download unsuccessful",Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     @Override
@@ -98,127 +103,22 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
         }
     }
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DocumentReference student1 = db.document("Students/Az1tFXxmiJYDOmtslTuqXdnA8jM2/");
-    private DocumentReference student2 = db.document("Students/1ANAoz9YFKa2sZZMSFabd3J2qUq1/");
-    private DocumentReference student3 = db.document("Students/SRnLO3Px4GgK6EmAMvzEi8TtPha2/");
-    private DocumentReference student4 = db.document("Students/eZuJ8S4oQtf372pDnvwmgIjdQlx2/");
-    private DocumentReference student5 = db.document("Students/ezlwp3ubldTFNUpNqde1RYZ801n1/");
-    private DocumentReference student6 = db.document("Students/feTUxVKRb5VXontwQITqnqM4Jhk2/");
-    private DocumentReference student7 = db.document("Students/u1pYHOLazLSstHINna0mYt4yjo72/");
-    private DocumentReference student8 = db.document("Students/vPMoWARINdMeNlIqGA6AY0NEiqf1/");
-
     public void cutName(String title){
+        title = title.substring(0, title.length() - 4 );
 
-        title = title.substring(0,title.length() - 4 );
-
-        if (title.matches("Jaber"))
-        {
-            student1.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.exists()) {
-                               String documentID = documentSnapshot.getId();
-                               // textView.setText(documentID);
-                                userRef = fStore.collection("Grades").document(""+documentID);
-                            }
-                        }
-                    });
-        }
-        if (title.matches("Bendjeddou"))
-        {
-            student2.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.exists()) {
-                                String documentID = documentSnapshot.getId();
-                                userRef = fStore.collection("Grades").document(""+documentID);
-                            }
-                        }
-                    });
-        }
-        if (title.matches("Wejdi"))
-        {
-            student3.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.exists()) {
-                                String documentID = documentSnapshot.getId();
-                                userRef = fStore.collection("Grades").document(""+documentID);
-                            }
-                        }
-                    });
-        }
-        if (title.matches("Makhlouf"))
-        {
-            student4.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.exists()) {
-                                String documentID = documentSnapshot.getId();
-                                userRef = fStore.collection("Grades").document(""+documentID);
-                            }
-                        }
-                    });
-        }
-        if (title.matches("Belkader"))
-        {
-            student5.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.exists()) {
-                                String documentID = documentSnapshot.getId();
-                                userRef = fStore.collection("Grades").document(""+documentID);
-                            }
-                        }
-                    });
-        }
-        if (title.matches("Badis"))
-        {
-            student6.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.exists()) {
-                                String documentID = documentSnapshot.getId();
-                                userRef = fStore.collection("Grades").document(""+documentID);
-                            }
-                        }
-                    });
-        }
-        if (title.matches("Faouzi"))
-        {
-            student7.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.exists()) {
-                                String documentID = documentSnapshot.getId();
-                                userRef = fStore.collection("Grades").document(""+documentID);
-                            }
-                        }
-                    });
-        }
-        if (title.matches("Riyad"))
-        {
-            student8.get()
-                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            if (documentSnapshot.exists()) {
-                                String documentID = documentSnapshot.getId();
-                                userRef = fStore.collection("Grades").document(""+documentID);
-                            }
-                        }
-                    });
-        }
+        students.whereEqualTo("Surname",title ).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        studentID = document.getId();
+                    }
+                } else {
+                    Toast.makeText(exercicePDFs.this, "Error getting document", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
-
 
     public void setGradeHW(View v) {
         String grade = gradeHW.getText().toString();
@@ -226,6 +126,7 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
         Map<String, Object> Loc = new HashMap<>();
         String S = KEY_GRADE +" "+ course;
         Loc.put(S, grade);
+        userRef = db.collection("Grades").document("" +studentID);
         userRef.set(Loc, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

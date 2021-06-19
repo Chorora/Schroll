@@ -73,11 +73,9 @@ public class courseViewActivity extends AppCompatActivity {
         });
     }
 
-
     public void onPageChanged(int page, int pageCount) {
         pageNumber = page;
     }
-
 
     public void loadComplete(int nbPages) {
         PdfDocument.Meta meta = lessonPDFView.getDocumentMeta();
