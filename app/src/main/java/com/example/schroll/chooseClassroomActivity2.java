@@ -27,7 +27,6 @@ public class chooseClassroomActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_classroom2);
-
         fStore = FirebaseFirestore.getInstance();
 
         classRoom1 = findViewById(R.id.ClassRoom1);

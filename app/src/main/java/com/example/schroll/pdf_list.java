@@ -22,16 +22,14 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class pdf_list extends AppCompatActivity {
+    public static final String EXTRA_TITLE = "com.example.Application.schroll.EXTRA_TITLE";
+    public static final String EXTRA_COURSE = "EXTRA_COURSE";
     public static ArrayList<pdfmodel > documentArrayList;
     RecyclerView recyclerView;
     FirebaseStorage documents;
     String uri, course;
     ProgressBar progress;
     int j;
-
-
-    public static final String EXTRA_TITLE = "com.example.Application.schroll.EXTRA_TITLE";
-    public static final String EXTRA_COURSE = "EXTRA_COURSE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

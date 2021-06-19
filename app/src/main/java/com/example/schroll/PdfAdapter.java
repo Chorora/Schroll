@@ -31,7 +31,7 @@ public class PdfAdapter extends RecyclerView.Adapter<PdfAdapter .viewHolder> {
     @Override
     public void onBindViewHolder(final viewHolder holder, final int i) {
         holder.title.setText(pdfArrayList.get(i).getName());
-        holder.duration.setText(pdfArrayList.get(i).getSize());
+
     }
 
     @Override
@@ -40,12 +40,11 @@ public class PdfAdapter extends RecyclerView.Adapter<PdfAdapter .viewHolder> {
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
-        TextView title, duration;
+        TextView title;
         ImageView image;
         public viewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
-            duration = (TextView) itemView.findViewById(R.id.size);
             image= (ImageView) itemView.findViewById(R.id.image);
             image.setImageResource(R.drawable.pdf);
             itemView.setOnClickListener(new View.OnClickListener() {

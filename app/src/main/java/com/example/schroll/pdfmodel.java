@@ -2,7 +2,6 @@ package com.example.schroll;
 
 public class pdfmodel {
     String name;
-    String size;
     String data;
 
     public void setData(String data) {
@@ -21,11 +20,4 @@ public class pdfmodel {
         return name;
     }
 
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getSize() {
-        return size;
-    }
 }
