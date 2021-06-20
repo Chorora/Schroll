@@ -18,9 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class GradesActivity extends AppCompatActivity {
     private static final String TAG = "GradesActivity";
     public String Year;
-    TextView courseNameView1, courseNameView2, courseNameView3, courseNameView4, courseNameView5, courseNameView6, courseNameView7, courseNameView8;
-    TextView gradeView1, gradeView2, gradeView3, gradeView4, gradeView5, gradeView6, gradeView7, gradeView8;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    TextView courseNameView1, courseNameView2, courseNameView3, courseNameView4, courseNameView5, courseNameView6, courseNameView7;
+    TextView gradeView1, gradeView2, gradeView3, gradeView4, gradeView5, gradeView6, gradeView7;
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
     String userID3;

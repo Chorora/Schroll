@@ -1,12 +1,12 @@
 package com.example.schroll;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -20,7 +20,6 @@ import java.util.Date;
 
 public class TimeTableActivity extends AppCompatActivity {
     private static final String TAG = "TimeTableActivity";
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
     String userID3;

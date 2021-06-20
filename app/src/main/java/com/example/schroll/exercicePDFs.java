@@ -35,15 +35,16 @@ import java.util.Map;
 
 public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteListener,OnPageChangeListener {
     private static final String KEY_GRADE ="Grade";
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference students = db.collection("Students");
+    private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    private FirebaseStorage fStorage =FirebaseStorage.getInstance();
+    StorageReference fStorageRef;
+    private CollectionReference students = fStore.collection("Students");
     PDFView pdfView;
     Integer pageNumber = 0;
     Handler mHandler,handler;
     EditText gradeHW;
     TextView textView;
     FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     DocumentReference userRef;
     String studentID, title, userID, course;
     int pdf_index;
@@ -57,8 +58,6 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
         mHandler = new Handler();
         handler = new Handler();
         title = pdf_list.documentArrayList.get(pdf_index).getData();
-        fStore = FirebaseFirestore.getInstance();
-        fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
         gradeHW = findViewById(R.id.hwGrade);
         textView = findViewById(R.id.textView17);
@@ -66,12 +65,12 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
         Intent intent = getIntent();
         course = intent.getStringExtra(pdf_list.EXTRA_COURSE);
 
-        cutName(title);
-        FirebaseStorage mFirebaseStorage=FirebaseStorage.getInstance();
-        StorageReference mmFirebaseStorageRef = mFirebaseStorage.getReference().child("Pdf Uploads/" +course +"/");
+        findStudentID(title);
+
+        fStorageRef = fStorage.getReference().child("Pdf Uploads/" +course +"/");
         final long ONE_MEGABYTE = 1024 * 1024;
 
-        mmFirebaseStorageRef.child(pdf_list.documentArrayList.get(pdf_index).getData()).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        fStorageRef.child(pdf_list.documentArrayList.get(pdf_index).getData()).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 pdfView.fromBytes(bytes).load();
@@ -103,7 +102,7 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
         }
     }
 
-    public void cutName(String title){
+    public void findStudentID(String title){
         title = title.substring(0, title.length() - 4 );
 
         students.whereEqualTo("Surname",title ).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -126,7 +125,7 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
         Map<String, Object> Loc = new HashMap<>();
         String S = KEY_GRADE +" "+ course;
         Loc.put(S, grade);
-        userRef = db.collection("Grades").document("" +studentID);
+        userRef = fStore.collection("Grades").document("" +studentID);
         userRef.set(Loc, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
