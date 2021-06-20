@@ -20,12 +20,15 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class homeWorksActivity extends AppCompatActivity {
 
     private static final String TAG = "homeWorksActivity";
+    public static final int EXTRA_NUMBER2 = 5;
+    public static final String EXTRA_YEAR = "EXTRA_YEAR";
+
     public String Year, Classroom;
-    TextView hw01,hwdd01, hw02,hwdd02, hw03,hwdd03, hw04,hwdd04, hw05,hwdd05, hw06,hwdd06, hw07,hwdd07, courseName;
+    TextView hw01, hwdd01, hw02, hwdd02, hw03, hwdd03, hw04, hwdd04, hw05, hwdd05, hw06, hwdd06, hw07, hwdd07, courseName;
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
+    DocumentReference documentReference, documentReference2;
     String userID4;
-    public static final int EXTRA_NUMBER2 = 5;
     int courseNumber;
 
     @Override
@@ -61,15 +64,15 @@ public class homeWorksActivity extends AppCompatActivity {
 
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
+                if (e != null) {
                     Toast.makeText(homeWorksActivity.this, "Error !", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, e.toString());
                 }
 
-                if (documentSnapshot.exists()){
+                if (documentSnapshot.exists()) {
                     classroomFinder classroom = documentSnapshot.toObject(classroomFinder.class);
                     assert classroom != null;
-                    Year=classroom.getYear();
+                    Year = classroom.getYear();
                     displayCourseName(Year);
                     Classroom = classroom.getClassroom();
                     displayDueDate(Year, Classroom);
@@ -83,87 +86,100 @@ public class homeWorksActivity extends AppCompatActivity {
         int i;
         for (i = 1; i <= 7; i++) {
 
-            DocumentReference documentReference = fStore.collection("Year" + Year + " Courses").document("Matiere 0" + i);
+            documentReference = fStore.collection("Year" + Year + " Courses").document("Matiere 0" + i);
             int finalI = i;
             documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    if (finalI == 1) { hw01.setText(documentSnapshot.getString("Name"));}
+                    if (finalI == 1) {
+                        hw01.setText(documentSnapshot.getString("Name"));
+                        ifClicked(hw01, finalI);
+                    }
 
-                    if (finalI == 2) { hw02.setText(documentSnapshot.getString("Name"));}
+                    if (finalI == 2) {
+                        hw02.setText(documentSnapshot.getString("Name"));
+                        ifClicked(hw02, finalI);
+                    }
 
-                    if (finalI == 3) {hw03.setText(documentSnapshot.getString("Name"));}
+                    if (finalI == 3) {
+                        hw03.setText(documentSnapshot.getString("Name"));
+                        ifClicked(hw03, finalI);
+                    }
 
-                    if (finalI == 4) {hw04.setText(documentSnapshot.getString("Name"));}
+                    if (finalI == 4) {
+                        hw04.setText(documentSnapshot.getString("Name"));
+                        ifClicked(hw04, finalI);
+                    }
 
-                    if (finalI == 5) {hw05.setText(documentSnapshot.getString("Name"));}
+                    if (finalI == 5) {
+                        hw05.setText(documentSnapshot.getString("Name"));
+                        ifClicked(hw05, finalI);
+                    }
 
-                    if (finalI == 6) {hw06.setText(documentSnapshot.getString("Name"));}
+                    if (finalI == 6) {
+                        hw06.setText(documentSnapshot.getString("Name"));
+                        ifClicked(hw06, finalI);
+                    }
 
-                    if (finalI == 7) {hw07.setText(documentSnapshot.getString("Name"));}
+                    if (finalI == 7) {
+                        hw07.setText(documentSnapshot.getString("Name"));
+                        ifClicked(hw07, finalI);
+                    }
                 }
             });
         }
     }
 
-        public void displayDueDate(String Year, String classroom) {
-            DocumentReference documentReference = fStore.collection("Home Works").document("Class " +Year +"_" +classroom);
-            documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+    public void displayDueDate(String Year, String classroom) {
+        int j;
+        for (j = 1; j <= 7; j++) {
+            documentReference2 = fStore.collection("Home Works").document("Class " + Year + "_" + classroom);
+            int finalJ = j;
+            documentReference2.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    hwdd01.setText(documentSnapshot.getString("HW 01 END"));
-                    hwdd02.setText(documentSnapshot.getString("HW 02 END"));
-                    hwdd03.setText(documentSnapshot.getString("HW 03 END"));
-                    hwdd04.setText(documentSnapshot.getString("HW 04 END"));
-                    hwdd05.setText(documentSnapshot.getString("HW 05 END"));
-                    hwdd06.setText(documentSnapshot.getString("HW 06 END"));
-                    hwdd07.setText(documentSnapshot.getString("HW 07 END"));
+                    if (finalJ == 1) {
+                        hwdd01.setText(documentSnapshot.getString("HW 01 END"));
+                        ifClicked(hwdd01, finalJ);
+                    }
+                    if (finalJ == 2) {
+                        hwdd02.setText(documentSnapshot.getString("HW 02 END"));
+                        ifClicked(hwdd02, finalJ);
+                    }
+                    if (finalJ == 3) {
+                        hwdd03.setText(documentSnapshot.getString("HW 03 END"));
+                        ifClicked(hwdd03, finalJ);
+                    }
+                    if (finalJ == 4) {
+                        hwdd04.setText(documentSnapshot.getString("HW 04 END"));
+                        ifClicked(hwdd04, finalJ);
+                    }
+                    if (finalJ == 5) {
+                        hwdd05.setText(documentSnapshot.getString("HW 05 END"));
+                        ifClicked(hwdd05, finalJ);
+                    }
+                    if (finalJ == 6) {
+                        hwdd06.setText(documentSnapshot.getString("HW 06 END"));
+                        ifClicked(hwdd06, finalJ);
+                    }
+                    if (finalJ == 7) {
+                        hwdd07.setText(documentSnapshot.getString("HW 07 END"));
+                        ifClicked(hwdd07, finalJ);
+                    }
                 }
-    });
+            });
+        }
     }
 
-    public void onDetailsClick1(View v){
-        int J = 1;
-        Intent intent = new Intent(this, homeWorkDetailsActivity.class);
-        intent.putExtra(String.valueOf(EXTRA_NUMBER2), J);
-        startActivity(intent);
+    public void ifClicked(TextView hw, int i) {
+        hw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), homeWorkDetailsActivity.class);
+                intent.putExtra(String.valueOf(EXTRA_NUMBER2), i);
+                intent.putExtra(String.valueOf(EXTRA_YEAR), Year);
+                startActivity(intent);
+            }
+        });
     }
-    public void onDetailsClick2(View v){
-        int J = 2;
-        Intent intent = new Intent(this, homeWorkDetailsActivity.class);
-        intent.putExtra(String.valueOf(EXTRA_NUMBER2), J);
-        startActivity(intent);
-    }
-    public void onDetailsClick3(View v){
-        int J = 3;
-        Intent intent = new Intent(this, homeWorkDetailsActivity.class);
-        intent.putExtra(String.valueOf(EXTRA_NUMBER2), J);
-        startActivity(intent);
-    }
-    public void onDetailsClick4(View v){
-        int J = 4;
-        Intent intent = new Intent(this, homeWorkDetailsActivity.class);
-        intent.putExtra(String.valueOf(EXTRA_NUMBER2), J);
-        startActivity(intent);
-    }
-    public void onDetailsClick5(View v){
-        int J = 5;
-        Intent intent = new Intent(this, homeWorkDetailsActivity.class);
-        intent.putExtra(String.valueOf(EXTRA_NUMBER2), J);
-        startActivity(intent);
-    }
-    public void onDetailsClick6(View v){
-        int J = 6;
-        Intent intent = new Intent(this, homeWorkDetailsActivity.class);
-        intent.putExtra(String.valueOf(EXTRA_NUMBER2), J);
-        startActivity(intent);
-    }
-    public void onDetailsClick7(View v){
-        int J = 7;
-        Intent intent = new Intent(this, homeWorkDetailsActivity.class);
-        intent.putExtra(String.valueOf(EXTRA_NUMBER2), J);
-        startActivity(intent);
-    }
-
 }

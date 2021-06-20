@@ -33,12 +33,11 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
     TextView courseViewText,homeWorkGrade, deadLine, homeWorkDescription;
     Button button;
     StorageReference storageReference;
-    String userID, Surname, pdfLocationName, Y, C;
+    String userID, Surname, pdfLocationName, Y, C, Year;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    DocumentReference documentReference, reference, homeworkRef, studentRef;
+    DocumentReference documentReference,courseRef, reference, homeworkRef, studentRef;
     int courseNumber;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +69,18 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         courseNumber = intent.getIntExtra(String.valueOf(homeWorksActivity.EXTRA_NUMBER2), -1);
-        if (courseNumber == 1) {pdfLocationName = "Math"; courseViewText.setText(pdfLocationName);}
-        if (courseNumber == 2) {pdfLocationName = "Science"; courseViewText.setText(pdfLocationName);}
-        if (courseNumber == 3) {pdfLocationName = "Physics" ; courseViewText.setText(pdfLocationName);}
-        if (courseNumber == 4) {pdfLocationName = "Art"; courseViewText.setText(pdfLocationName);}
-        if (courseNumber == 5) {pdfLocationName = "Islamic" ;courseViewText.setText(pdfLocationName);}
-        if (courseNumber == 6) {pdfLocationName = "Arabic" ;courseViewText.setText(pdfLocationName);}
-        if (courseNumber == 7) {pdfLocationName = "English" ;courseViewText.setText(pdfLocationName);}
+        Year = intent.getStringExtra(String.valueOf(homeWorksActivity.EXTRA_YEAR));
+
+        courseRef = fStore.collection("Year" + Year + " Courses").document("Matiere 0" + courseNumber);
+        courseRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                pdfLocationName = documentSnapshot.getString("Name");
+                courseViewText.setText(pdfLocationName);
+                pdfLocationName = pdfLocationName.substring(0, pdfLocationName.length()-4);
+
+            }
+        });
 
         setHomeWorkGrade();
         getStudentSurname();
@@ -88,15 +92,15 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         studentRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-             Y = documentSnapshot.getString("Year");
+            // Y = documentSnapshot.getString("Year");
              C = documentSnapshot.getString("Classroom");
-                sethomeWorkDetails(Y, C);
+                sethomeWorkDetails( C);
             }
         });
     }
 
-    private void sethomeWorkDetails(String Y, String C) {
-        homeworkRef = fStore.collection("Home Works").document("Class " +Y +"_" +C);
+    private void sethomeWorkDetails(String C) {
+        homeworkRef = fStore.collection("Home Works").document("Class " +Year +"_" +C);
 
         homeworkRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
