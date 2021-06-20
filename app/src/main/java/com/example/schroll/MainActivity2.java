@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity2 extends AppCompatActivity {
 
     String specialty;
@@ -36,6 +38,12 @@ public class MainActivity2 extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), chooseClassroomActivity2.class);
         intent.putExtra(EXTRA_SPECIALTY2, specialty);
         startActivity(intent);
+    }
+
+    public void signOut(View v){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(), loginActivity.class));
+        finish();
     }
 
 }

@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -29,33 +30,34 @@ import com.google.firebase.storage.StorageReference;
 
 public class loginActivity extends AppCompatActivity {
 
-    Button createAccountBtn, loginButton;
+    public static final String EXTRA_SPECIALTY = "EXTRA_SPECIALTY";
+    public static final String EXTRA_TYPE = "EXTRA_TYPE";
+    Button loginButton;
     EditText email, password;
-    FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth, fAuth;
+    FirebaseFirestore fStore;
     TextView forgetText;
     AlertDialog.Builder reset_alert;
     LayoutInflater inflater;
     String specialty;
-    String userID;
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
+    String userID, Type;
     StorageReference storageReference;
-    public static final String EXTRA_SPECIALTY = "EXTRA_SPECIALTY";
+    DocumentReference typeOfUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         firebaseAuth = FirebaseAuth.getInstance();
-
-        reset_alert = new AlertDialog.Builder(this);
-        inflater = this.getLayoutInflater();
+        fStore = FirebaseFirestore.getInstance();
 
         email = findViewById(R.id.loginEmail);
         password = findViewById(R.id.loginPassword);
         loginButton = findViewById(R.id.loginbutton);
         forgetText = findViewById(R.id.forgetText);
+
+        reset_alert = new AlertDialog.Builder(this);
+        inflater = this.getLayoutInflater();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +77,7 @@ public class loginActivity extends AppCompatActivity {
                 firebaseAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(loginActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(loginActivity.this, "You successfully logged in", Toast.LENGTH_SHORT).show();
                         dependUser();
                     }
 
@@ -90,7 +92,6 @@ public class loginActivity extends AppCompatActivity {
         });
     }
 
-
     //Check the type of the user
     public void dependUser(){
         fStore = FirebaseFirestore.getInstance();
@@ -103,13 +104,14 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-              String Name = documentSnapshot.getString("Type");
-               if (Name.equals("Student")){
+                Type = documentSnapshot.getString("Type");
+               if (Type.equals("Student")){
                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                    finish();}
-               if(Name.equals("Teacher")) {
+               if(Type.equals("Teacher")) {
                    specialty = documentSnapshot.getString("Specialty");
                    Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                   intent.putExtra(EXTRA_TYPE, Type);
                    intent.putExtra(EXTRA_SPECIALTY, specialty);
                    startActivity(intent);
                    finish();}
@@ -145,12 +147,41 @@ public class loginActivity extends AppCompatActivity {
                                 Toast.makeText(loginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-
                     }
 
                 }).setNegativeButton("Cancel",null)
                 .setView(view)
                 .create().show();
+    }
+
+@Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String UiD = user.getUid();
+
+            typeOfUserRef = fStore.collection("Users").document(UiD);
+            typeOfUserRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    if(documentSnapshot.exists()){
+                        Type = documentSnapshot.getString("Type");
+                        specialty = documentSnapshot.getString("Specialty");
+                        if(Type.equals("Student")){
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        }
+                        else if(Type.equals("Teacher")){
+                            Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                            intent.putExtra(EXTRA_SPECIALTY, specialty);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }
+            });
+        }
     }
 
 }
