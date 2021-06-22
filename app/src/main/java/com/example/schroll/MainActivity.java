@@ -28,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeaturedAdapter.onCourseListener, OthersAdapter.onCoursesListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeaturedAdapter.onCourseListener, OthersAdapter.onCoursesListener {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth fAuth;
     String userID5;
 
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         othersLocations.add(new OthersHelperClass(R.drawable.arabic_logo, c6, c66));
         othersLocations.add(new OthersHelperClass(R.drawable.english_logo, c7, c77));
 
-        othersAdapter = new OthersAdapter(othersLocations,this);
+        othersAdapter = new OthersAdapter(othersLocations, this);
         othersRecycler.setAdapter(othersAdapter);
     }
 
@@ -252,11 +250,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onCourseClick(int position) {
         Log.d(TAG, "onCourseClick: Clicked ." + position);
-            int g = position;
-            Intent intent = new Intent(this, Course_01_Activity.class);
-            intent.putExtra(EXTRA_TEXT, g);
-            startActivity(intent);
-        }
+        int g = position;
+        Intent intent = new Intent(this, Course_01_Activity.class);
+        intent.putExtra(EXTRA_TEXT, g);
+        startActivity(intent);
+    }
 
     @Override
     public void onCoursesClick(int position) {

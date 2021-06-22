@@ -33,11 +33,11 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
     TextView courseViewText,homeWorkGrade, deadLine, homeWorkDescription;
     Button button;
     StorageReference storageReference;
-    String userID, Surname, pdfLocationName, Y, C, Year;
+    String userID, Surname, pdfLocationName, C, Year, course_number_but_on_string;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     DocumentReference documentReference,courseRef, reference, homeworkRef, studentRef;
-    int courseNumber;
+    int courseNumber, Y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         documentReference = fStore.collection("Pdf Uploads").document(userID);
         reference = fStore.collection("Grades").document(userID);
 
+        courseViewText = findViewById(R.id.courseNameView);
         editText = findViewById(R.id.selectPDF);
         button = findViewById(R.id.uploadPDF);
         homeWorkGrade = findViewById(R.id.noteView);
@@ -65,26 +66,31 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
             }
         });
 
-        courseViewText = findViewById(R.id.courseNameView);
+
         Intent intent = getIntent();
-
         courseNumber = intent.getIntExtra(String.valueOf(homeWorksActivity.EXTRA_NUMBER2), -1);
-        Year = intent.getStringExtra(String.valueOf(homeWorksActivity.EXTRA_YEAR));
+        Year = intent.getStringExtra(homeWorksActivity.EXTRA_YEAR);
 
-        courseRef = fStore.collection("Year" + Year + " Courses").document("Matiere 0" + courseNumber);
+        if (Year == null) {
+            Intent intent1 = getIntent();
+            Y = intent1.getIntExtra(String.valueOf(Course_01_Activity.EXTRA_NUMBER), -1);
+            courseNumber = Y;
+            Year = intent1.getStringExtra(Course_01_Activity.EXTRA_YEARS);
+        }
+
+        course_number_but_on_string = String.valueOf(courseNumber);
+        courseRef = fStore.collection("Year" + Year + " Courses").document("Matiere 0" + course_number_but_on_string);
         courseRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 pdfLocationName = documentSnapshot.getString("Name");
                 courseViewText.setText(pdfLocationName);
-                pdfLocationName = pdfLocationName.substring(0, pdfLocationName.length()-4);
-
             }
         });
 
+        getClassStudent();
         setHomeWorkGrade();
         getStudentSurname();
-        getClassStudent();
     }
 
     private void getClassStudent() {
@@ -92,7 +98,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         studentRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-            // Y = documentSnapshot.getString("Year");
+
              C = documentSnapshot.getString("Classroom");
                 sethomeWorkDetails( C);
             }
@@ -105,9 +111,10 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         homeworkRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable  DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot != null){
                 deadLine.setText(documentSnapshot.getString("HW 0" +courseNumber +" END"));
                 homeWorkDescription.setText(documentSnapshot.getString("HW 0" +courseNumber));
-            }
+            }}
         });
     }
 
@@ -141,6 +148,8 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         progressDialog.setTitle("File is loading...");
         progressDialog.show();
 
+            pdfLocationName = pdfLocationName.substring(0, pdfLocationName.length() - 4);
+
         StorageReference pdfRef = storageReference.child("Pdf Uploads/" +pdfLocationName +"/" +Surname +".pdf");
         pdfRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -148,10 +157,6 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                         while (!uriTask.isComplete());
-                        Uri uri = uriTask.getResult();
-
-                        putPDF putPDF = new putPDF(editText.getText().toString(), uri.toString());
-                        UploadTask uploadTask = storageReference.child(documentReference.toString()).putFile(Uri.parse(userID));
                         Toast.makeText(homeWorkDetailsActivity.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
@@ -162,7 +167,8 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
                 progressDialog.setMessage("File Uploading... " +(int) progress +"%");
             }
         });
-    }
+        }
+
 
     public void setHomeWorkGrade() {
 

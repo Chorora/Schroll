@@ -30,12 +30,12 @@ public class Course_01_Activity extends AppCompatActivity {
     FirebaseAuth fAuth;
     String in = "";
     String userID2, chapter01Desc = "", chapter02Desc = "", chapter03Desc = "", courseName;
-
     TextView Chapter01, Chapter01Description, Chapter02, Chapter02Description, Chapter03, Chapter03Description;
     TextView Name, Description;
     ImageView courseImage;
 
     public static final int EXTRA_NUMBER = 5;
+    public static final String EXTRA_YEARS = "EXTRA_YEARS";
     public static final String EXTRA_COURSE = "EXTRA_COURSE";
     public static final String EXTRA_CLASSCODE = "EXTRA_CLASSCODE";
 
@@ -199,13 +199,14 @@ public class Course_01_Activity extends AppCompatActivity {
         }
         Intent intent = new Intent(this, homeWorkDetailsActivity.class);
         intent.putExtra(String.valueOf(EXTRA_NUMBER), N);
+        intent.putExtra(EXTRA_YEARS, Year);
         startActivity(intent);
     }
 
     public void viewLessons(View v){
         Intent intent = new Intent(this,coursesViewActivity.class);
-        intent.putExtra(String.valueOf(EXTRA_COURSE), courseName);
-        intent.putExtra(String.valueOf(EXTRA_CLASSCODE), classCode);
+        intent.putExtra(EXTRA_COURSE, courseName);
+        intent.putExtra(EXTRA_CLASSCODE, classCode);
         startActivity(intent);
     }
 

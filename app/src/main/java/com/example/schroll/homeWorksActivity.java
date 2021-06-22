@@ -20,10 +20,10 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class homeWorksActivity extends AppCompatActivity {
 
     private static final String TAG = "homeWorksActivity";
-    public static final int EXTRA_NUMBER2 = 5;
     public static final String EXTRA_YEAR = "EXTRA_YEAR";
+    public static final int EXTRA_NUMBER2 = 5;
 
-    public String Year, Classroom;
+    String Year, Classroom;
     TextView hw01, hwdd01, hw02, hwdd02, hw03, hwdd03, hw04, hwdd04, hw05, hwdd05, hw06, hwdd06, hw07, hwdd07, courseName;
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
@@ -177,7 +177,7 @@ public class homeWorksActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), homeWorkDetailsActivity.class);
                 intent.putExtra(String.valueOf(EXTRA_NUMBER2), i);
-                intent.putExtra(String.valueOf(EXTRA_YEAR), Year);
+                intent.putExtra((EXTRA_YEAR), Year);
                 startActivity(intent);
             }
         });

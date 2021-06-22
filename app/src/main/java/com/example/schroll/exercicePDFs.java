@@ -37,6 +37,7 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
     private static final String KEY_GRADE ="Grade";
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     private FirebaseStorage fStorage =FirebaseStorage.getInstance();
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();;
     StorageReference fStorageRef;
     private CollectionReference students = fStore.collection("Students");
     PDFView pdfView;
@@ -44,7 +45,7 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
     Handler mHandler,handler;
     EditText gradeHW;
     TextView textView;
-    FirebaseAuth fAuth;
+
     DocumentReference userRef;
     String studentID, title, userID, course;
     int pdf_index;
@@ -53,12 +54,12 @@ public class exercicePDFs extends AppCompatActivity implements OnLoadCompleteLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercice_p_d_fs);
+        userID = fAuth.getCurrentUser().getUid();
         pdfView = (PDFView) findViewById(R.id.pdfView);
         pdf_index = getIntent().getIntExtra("pos" , 0);
         mHandler = new Handler();
         handler = new Handler();
         title = pdf_list.documentArrayList.get(pdf_index).getData();
-        userID = fAuth.getCurrentUser().getUid();
         gradeHW = findViewById(R.id.hwGrade);
         textView = findViewById(R.id.textView17);
 
