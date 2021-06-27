@@ -36,6 +36,7 @@ public class loginActivity extends AppCompatActivity {
     EditText email, password;
     FirebaseAuth firebaseAuth, fAuth;
     FirebaseFirestore fStore;
+    FirebaseUser user;
     TextView forgetText;
     AlertDialog.Builder reset_alert;
     LayoutInflater inflater;
@@ -50,15 +51,49 @@ public class loginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         firebaseAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String UiD = user.getUid();
+
+            typeOfUserRef = fStore.collection("Users").document(UiD);
+            typeOfUserRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    if(documentSnapshot.exists()){
+                        Type = documentSnapshot.getString("Type");
+
+                        if(Type.equals("Student")){
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        }
+                        else if(Type.equals("Teacher")){
+                            specialty = documentSnapshot.getString("Specialty");
+                            Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                            intent.putExtra(EXTRA_SPECIALTY, specialty);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }
+            });
+        }
+        else{ login();}
+    }
+
+    protected void login() {
         email = findViewById(R.id.loginEmail);
         password = findViewById(R.id.loginPassword);
         loginButton = findViewById(R.id.loginbutton);
         forgetText = findViewById(R.id.forgetText);
-
+        email.setVisibility(View.VISIBLE);
+        password.setVisibility(View.VISIBLE);
+        loginButton.setVisibility(View.VISIBLE);
+        forgetText.setVisibility(View.VISIBLE);
         reset_alert = new AlertDialog.Builder(this);
         inflater = this.getLayoutInflater();
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,10 +127,8 @@ public class loginActivity extends AppCompatActivity {
         });
     }
 
-    //Check the type of the user
+
     public void dependUser(){
-        fStore = FirebaseFirestore.getInstance();
-        fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -154,34 +187,7 @@ public class loginActivity extends AppCompatActivity {
                 .create().show();
     }
 
-@Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String UiD = user.getUid();
 
-            typeOfUserRef = fStore.collection("Users").document(UiD);
-            typeOfUserRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    if(documentSnapshot.exists()){
-                        Type = documentSnapshot.getString("Type");
-                        specialty = documentSnapshot.getString("Specialty");
-                        if(Type.equals("Student")){
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
-                        }
-                        else if(Type.equals("Teacher")){
-                            Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
-                            intent.putExtra(EXTRA_SPECIALTY, specialty);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                }
-            });
-        }
-    }
+
 
 }

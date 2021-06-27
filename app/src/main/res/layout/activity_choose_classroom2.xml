@@ -12,6 +12,7 @@
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/green_1"
         app:cardCornerRadius="20dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.228"
@@ -41,6 +42,7 @@
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/green_1"
         app:cardCornerRadius="20dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.829"
@@ -70,6 +72,7 @@
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/green_1"
         app:cardCornerRadius="20dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.228"
@@ -94,10 +97,12 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView11"
         android:layout_width="100dp"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/green_1"
         app:cardCornerRadius="20dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.829"
