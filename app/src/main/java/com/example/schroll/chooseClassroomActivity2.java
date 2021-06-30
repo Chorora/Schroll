@@ -29,9 +29,9 @@ public class chooseClassroomActivity2 extends AppCompatActivity {
     CardView cardView1, cardView2, cardView3, cardView4;
     DocumentReference classXRef, classXRef2;
     String course, i_but_on_String_XD, j_but_on_string;
-    int limited = 5, index = 1;
+    int limited = 5;
     String[] classRoomX = new String[limited];
-    String[] classRoomXD = new String[7];
+    String[] classRoomXD = new String[5];
     String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +59,21 @@ public class chooseClassroomActivity2 extends AppCompatActivity {
             classXRef2.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    for (int j = 1; j < 5; j++) {
+                    for (int j = 1; j < limited; j++) {
                         int finalJ = j;
                         j_but_on_string = Integer.toString(finalJ);
                         classRoomXD[finalJ] = documentSnapshot.getString("Class 0" + j_but_on_string);
+
                         if(classRoomXD[finalJ].equals("")){
-                            classRoomXD[finalJ] = "null";
+                            classRoomXD[finalJ] = null;
                         }
+                            displayClassesAvailable(classRoomXD[finalJ]);
                     }
                 }
             });
+    }
 
-
+    public void displayClassesAvailable(String classRoomXD){
         for (int i = 1; i < limited; i++) {
             i_but_on_String_XD = Integer.toString(i);
             classXRef = fStore.collection("Classrooms").document("Class 0" + i_but_on_String_XD);
@@ -86,28 +89,24 @@ public class chooseClassroomActivity2 extends AppCompatActivity {
                             if (finalI == 1) {
                                 classRoomX[finalI] = document.getString("Code");
 
-                                if(classRoomX[finalI].equals(classRoomXD[index])) {
+                                if (classRoomX[finalI].equals(classRoomXD)) {
 
                                     cardView1.setVisibility(View.VISIBLE);
                                     classRoom1.setText(document.getString("Name"));
-                                    index = index + 1;
                                     classRoom1.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        passToEdit(classRoomX[finalI]);
-                                    }
-                                });
+                                        @Override
+                                        public void onClick(View v) {
+                                            passToEdit(classRoomX[finalI]);
+                                        }
+                                    });
                                 }
-                            }
-
-                           else if (finalI == 2) {
+                            } else if (finalI == 2) {
                                 classRoomX[finalI] = document.getString("Code");
 
                                 //Check if the classroom in db storage matches one of the classrooms that this teacher is responsible for
-                                if(classRoomX[finalI].equals(classRoomXD[index])) {
+                                if (classRoomX[finalI].equals(classRoomXD)) {
                                     cardView2.setVisibility(View.VISIBLE);
                                     classRoom2.setText(document.getString("Name"));
-                                      index = index + 1;
                                     classRoom2.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -115,16 +114,13 @@ public class chooseClassroomActivity2 extends AppCompatActivity {
                                         }
                                     });
                                 }
-                            }
-
-                           else if (finalI == 3) {
+                            } else if (finalI == 3) {
                                 classRoomX[finalI] = document.getString("Code");
 
                                 //Check if the classroom in db storage matches one of the classrooms that this teacher is responsible for
-                                if(classRoomX[finalI].equals(classRoomXD[index])) {
+                                if (classRoomX[finalI].equals(classRoomXD)) {
                                     cardView3.setVisibility(View.VISIBLE);
                                     classRoom3.setText(document.getString("Name"));
-                                    index = index + 1;
                                     classRoom3.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
@@ -132,16 +128,13 @@ public class chooseClassroomActivity2 extends AppCompatActivity {
                                         }
                                     });
                                 }
-                            }
-
-                           else if (finalI == 4) {
+                            } else if (finalI == 4) {
                                 classRoomX[finalI] = document.getString("Code");
 
                                 //Check if the classroom in db storage matches one of the classrooms that this teacher is responsible for
-                                if(classRoomX[finalI].equals(classRoomXD[index])) {
+                                if (classRoomX[finalI].equals(classRoomXD)) {
                                     cardView4.setVisibility(View.VISIBLE);
                                     classRoom4.setText(document.getString("Name"));
-                                    index = index + 1;
                                     classRoom4.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
