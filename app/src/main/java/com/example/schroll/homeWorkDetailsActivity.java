@@ -85,11 +85,12 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 pdfLocationName = documentSnapshot.getString("Name");
                 courseViewText.setText(pdfLocationName);
+                pdfLocationName = pdfLocationName.substring(0, pdfLocationName.length() - 4);
+                setHomeWorkGrade(pdfLocationName);
             }
         });
 
         getClassStudent();
-        setHomeWorkGrade();
         getStudentSurname();
     }
 
@@ -148,7 +149,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         progressDialog.setTitle("File is loading...");
         progressDialog.show();
 
-            pdfLocationName = pdfLocationName.substring(0, pdfLocationName.length() - 4);
+        pdfLocationName = pdfLocationName.substring(0, pdfLocationName.length() - 4);
 
         StorageReference pdfRef = storageReference.child("Pdf Uploads/" +pdfLocationName +"/" +Surname +".pdf");
         pdfRef.putFile(data)
@@ -170,12 +171,13 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         }
 
 
-    public void setHomeWorkGrade() {
+    public void setHomeWorkGrade(String pdfLocationName) {
 
         reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-             homeWorkGrade.setText(documentSnapshot.getString("Grade " +pdfLocationName));
+            homeWorkGrade.setText(documentSnapshot.getString("Grade " +pdfLocationName));
+
             }
         });
     }

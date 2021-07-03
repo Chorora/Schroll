@@ -16,6 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Schroll">
+        <activity android:name=".addStudentActivity"></activity>
+        <activity android:name=".MainActivity3" />
         <activity android:name=".courseViewActivity" />
         <activity android:name=".coursesViewActivity" />
         <activity android:name=".uploadCourseActivity" />
@@ -46,7 +48,8 @@
         <activity
             android:name=".profileActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".loginActivity"
+        <activity
+            android:name=".loginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

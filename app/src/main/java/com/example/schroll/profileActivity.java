@@ -39,8 +39,8 @@ public class profileActivity extends AppCompatActivity {
     private static final String KEY_ADDRESS ="Address" ;
     private static final String KEY_PHONE = "Phone";
 
-    private TextView Name, Surname,Age, Class;
-    private ImageView imageView;
+    private TextView Name, Surname,Age, Class, phone, address;
+    private ImageView imageView, editIcon1, editIcon2;
     private AutoCompleteTextView Address;
     private EditText Phone;
     Button imageUpdate;
@@ -64,7 +64,9 @@ public class profileActivity extends AppCompatActivity {
         Age = findViewById(R.id.ageView);
         Class = findViewById(R.id.classView);
         Address = findViewById(R.id.addressEditView);
+        address = findViewById(R.id.addressView2);
         Phone = findViewById(R.id.phoneEditView);
+        phone = findViewById(R.id.phoneView);
         imageView = findViewById(R.id.imageView);
         imageUpdate= findViewById(R.id.imageUpdate);
 
@@ -86,8 +88,9 @@ public class profileActivity extends AppCompatActivity {
                     Surname.setText(documentSnapshot.getString("Surname"));
                     Age.setText(documentSnapshot.get("Age").toString());
                     Class.setText(documentSnapshot.getString("Class"));
-                    Address.setText(documentSnapshot.getString("Address"));
-                    Phone.setText(documentSnapshot.getString("Phone"));
+                    address.setText(documentSnapshot.getString("Address"));
+                    String fullPhone = "+213 "+documentSnapshot.get("Phone").toString();
+                    phone.setText(fullPhone);
             }
         });
 
@@ -100,20 +103,23 @@ public class profileActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void updateProfile(View v){
         String address = Address.getText().toString();
-        String phone =   Phone.getText().toString();
-
+        String phone = Phone.getText().toString();
+        if (address.equals("") || phone.equals("")) {
+            Toast.makeText(this, "The Field(s) should not be empty", Toast.LENGTH_SHORT).show();
+        }
+        if (phone.length() < 8 || phone.length() >= 11){ Toast.makeText(this, "Incorrect phone number length", Toast.LENGTH_SHORT).show(); }
+        else {
         fStore = FirebaseFirestore.getInstance();
         DocumentReference userRef = fStore.collection("Students").document(userID);
 
+        int Phone = Integer.parseInt(phone);
         Map<String, Object> Loc = new HashMap<>();
          Loc.put(KEY_ADDRESS, address);
-         Loc.put(KEY_PHONE, phone);
-
+         Loc.put(KEY_PHONE, Phone);
         userRef.set(Loc, SetOptions.merge())
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -121,6 +127,7 @@ public class profileActivity extends AppCompatActivity {
                 Toast.makeText(profileActivity.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
             }
         });
+        }
         }
 
     @Override
@@ -155,6 +162,16 @@ public class profileActivity extends AppCompatActivity {
                 Toast.makeText(profileActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    
+    public void editPhone(View v){
+        phone.setVisibility(View.INVISIBLE);
+        Phone.setVisibility(View.VISIBLE);
+    }
+    
+    public void editAddress(View v){
+        address.setVisibility(View.INVISIBLE);
+        Address.setVisibility(View.VISIBLE);
     }
 
     }

@@ -72,10 +72,12 @@ public class loginActivity extends AppCompatActivity {
                             specialty = documentSnapshot.getString("Specialty");
                             Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
                             intent.putExtra(EXTRA_SPECIALTY, specialty);
-
                             startActivity(intent);
                             finish();
                         }
+                        else if (Type.equals("Admin")){
+                            startActivity(new Intent(getApplicationContext(), MainActivity3.class));
+                            finish();}
                     }
                 }
             });
@@ -148,6 +150,9 @@ public class loginActivity extends AppCompatActivity {
                    intent.putExtra(EXTRA_SPECIALTY, specialty);
                    startActivity(intent);
                    finish();}
+                if (Type.equals("Admin")){
+                    startActivity(new Intent(getApplicationContext(), MainActivity3.class));
+                    finish();}
             }
         });
     }
@@ -186,8 +191,5 @@ public class loginActivity extends AppCompatActivity {
                 .setView(view)
                 .create().show();
     }
-
-
-
 
 }

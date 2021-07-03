@@ -4,5 +4,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-
+    <string-array name="Classes">
+        <item>1 A 1</item>
+        <item>1 A 2</item>
+        <item>2 A 1</item>
+        <item>2 A 2</item>
+    </string-array>
+    
 </resources>
