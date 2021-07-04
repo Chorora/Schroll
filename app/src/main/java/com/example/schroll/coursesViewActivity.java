@@ -29,7 +29,7 @@ public class coursesViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FirebaseStorage documents;
     ProgressBar progress;
-    String uri, courseName, classCode;
+    String courseName, classCode;
     int j;
 
 

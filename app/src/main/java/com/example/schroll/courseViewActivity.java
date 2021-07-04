@@ -16,9 +16,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.shockwave.pdfium.PdfDocument;
-
-import java.util.List;
 
 public class courseViewActivity extends AppCompatActivity {
 
@@ -26,7 +23,6 @@ public class courseViewActivity extends AppCompatActivity {
     StorageReference fStorageRef;
     FirebaseAuth fAuth;
     PDFView lessonPDFView;
-    Integer pageNumber = 0;
     String title, userID, courseName, classCode;
     int lesson_index;
     Handler mHandler, handler;
@@ -57,7 +53,9 @@ public class courseViewActivity extends AppCompatActivity {
         fStorageRef = fStorage.getReference().child("Course Uploads/" + classCode + "/" + courseName + "/");
         final long ONE_MEGABYTE = 1024 * 1024;
 
-        fStorageRef.child(coursesViewActivity.documentsArrayList.get(lesson_index).getData()).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        fStorageRef.child(coursesViewActivity.documentsArrayList
+                .get(lesson_index).getData()).getBytes(ONE_MEGABYTE)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 lessonPDFView.fromBytes(bytes).load();
@@ -70,20 +68,4 @@ public class courseViewActivity extends AppCompatActivity {
         });
     }
 
-    public void onPageChanged(int page, int pageCount) {
-        pageNumber = page;
-    }
-
-    public void loadComplete(int nbPages) {
-        PdfDocument.Meta meta = lessonPDFView.getDocumentMeta();
-        printBookmarksTree(lessonPDFView.getTableOfContents(), "-");
-    }
-
-    public void printBookmarksTree(List<PdfDocument.Bookmark> tree, String sep) {
-        for (PdfDocument.Bookmark b : tree) {
-            if (b.hasChildren()) {
-                printBookmarksTree(b.getChildren(), sep + "-");
-            }
-        }
-    }
 }

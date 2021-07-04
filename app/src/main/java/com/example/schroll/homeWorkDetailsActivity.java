@@ -157,7 +157,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (documentSnapshot.exists()){
                     pdfLocationName2 = documentSnapshot.getString("Code name");
-                    StorageReference pdfRef = storageReference.child("Pdf Uploads/" +pdfLocationName2 +"/" +Surname +".pdf");
+                    StorageReference pdfRef = storageReference.child("Pdf Uploads/" +"Class " +Year +"_" +C +"/" +pdfLocationName2 +"/" +Surname +".pdf");
                     pdfRef.putFile(data)
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
