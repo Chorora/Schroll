@@ -29,19 +29,14 @@ import com.google.firebase.storage.UploadTask;
 
 public class homeWorkDetailsActivity extends AppCompatActivity {
 
-    // I'm investigating an issue that i discovered today with the uploading functionality
-    // whereas the student uploads his file, it registers to a different storage place than it is supposed to be
-    // (As it was normally working last time i checked it)
-
-
     ImageView fileIcon;
     TextView courseViewText,homeWorkGrade, deadLine, homeWorkDescription;
     Button button;
     StorageReference storageReference;
-    String userID, Surname, pdfLocationName, C, Year, course_number_but_on_string;
+    String userID, Surname, C, Year, course_number_but_on_string, pdfLocationName2, pdfLocationName;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    DocumentReference documentReference,courseRef, reference, homeworkRef, studentRef;
+    DocumentReference documentReference,courseRef,courseRef2 , reference, homeworkRef, studentRef;
     int courseNumber, Y;
 
     @Override
@@ -56,7 +51,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         reference = fStore.collection("Grades").document(userID);
 
         courseViewText = findViewById(R.id.courseNameView);
-        fileIcon = (ImageView) findViewById(R.id.imageView4);
+        fileIcon = findViewById(R.id.imageView4);
         button = findViewById(R.id.uploadPDF);
         homeWorkGrade = findViewById(R.id.noteView);
         deadLine = findViewById(R.id.delaiView);
@@ -83,7 +78,9 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
             Year = intent1.getStringExtra(Course_01_Activity.EXTRA_YEARS);
         }
 
+
         course_number_but_on_string = String.valueOf(courseNumber);
+
         courseRef = fStore.collection("Year" + Year + " Courses").document("Matiere 0" + course_number_but_on_string);
         courseRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -106,7 +103,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
              C = documentSnapshot.getString("Classroom");
-                sethomeWorkDetails( C);
+                sethomeWorkDetails( C );
             }
         });
     }
@@ -154,27 +151,33 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         progressDialog.setTitle("File is loading...");
         progressDialog.show();
 
-        pdfLocationName = pdfLocationName.substring(0, pdfLocationName.length() - 4);
-
-        StorageReference pdfRef = storageReference.child("Pdf Uploads/" +pdfLocationName +"/" +Surname +".pdf");
-        pdfRef.putFile(data)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isComplete());
-                        Toast.makeText(homeWorkDetailsActivity.this, "File Uploaded", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+        courseRef2 =fStore.collection("Year" + Year + " Courses").document("Matiere 0" + course_number_but_on_string);
+        courseRef2.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
-                progressDialog.setMessage("File Uploading... " +(int) progress +"%");
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot.exists()){
+                    pdfLocationName2 = documentSnapshot.getString("Code name");
+                    StorageReference pdfRef = storageReference.child("Pdf Uploads/" +pdfLocationName2 +"/" +Surname +".pdf");
+                    pdfRef.putFile(data)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                                    while (!uriTask.isComplete());
+                                    Toast.makeText(homeWorkDetailsActivity.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
+                            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            double progress = (100.0* snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                            progressDialog.setMessage("File Uploading... " +(int) progress +"%");
+                        }
+                    });
+                }
             }
         });
         }
-
 
     public void setHomeWorkGrade(String pdfLocationName) {
 
@@ -182,7 +185,6 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
             homeWorkGrade.setText(documentSnapshot.getString("Grade " +pdfLocationName));
-
             }
         });
     }
