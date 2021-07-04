@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +29,12 @@ import com.google.firebase.storage.UploadTask;
 
 public class homeWorkDetailsActivity extends AppCompatActivity {
 
-    EditText editText;
+    // I'm investigating an issue that i discovered today with the uploading functionality
+    // whereas the student uploads his file, it registers to a different storage place than it is supposed to be
+    // (As it was normally working last time i checked it)
+
+
+    ImageView fileIcon;
     TextView courseViewText,homeWorkGrade, deadLine, homeWorkDescription;
     Button button;
     StorageReference storageReference;
@@ -51,7 +56,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         reference = fStore.collection("Grades").document(userID);
 
         courseViewText = findViewById(R.id.courseNameView);
-        editText = findViewById(R.id.selectPDF);
+        fileIcon = (ImageView) findViewById(R.id.imageView4);
         button = findViewById(R.id.uploadPDF);
         homeWorkGrade = findViewById(R.id.noteView);
         deadLine = findViewById(R.id.delaiView);
@@ -59,7 +64,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
 
         button.setEnabled(false);
 
-        editText.setOnClickListener(new View.OnClickListener() {
+        fileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectPDF();
@@ -131,8 +136,8 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 12 && resultCode == RESULT_OK && data != null && data.getData() != null){
             button.setEnabled(true);
-            editText.setText(data.getDataString()
-                    .substring(data.getDataString().lastIndexOf("/") + 1));
+            fileIcon.setImageResource(R.drawable.file_selected_icon_1);
+            Toast.makeText(this, " PDF file selected", Toast.LENGTH_SHORT).show();
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
