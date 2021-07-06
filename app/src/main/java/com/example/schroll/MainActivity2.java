@@ -40,6 +40,12 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onAddGradesClick(View v){
+        Intent intent = new Intent(getApplicationContext(), addGradesActivity.class);
+        intent.putExtra(EXTRA_SPECIALTY2, specialty);
+        startActivity(intent);
+    }
+
     public void signOut(View v){
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), loginActivity.class));
