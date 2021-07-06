@@ -62,14 +62,13 @@ public class pdf_list extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 for (int j = 1; j < limited; j++) {
-                    int finalJ = j;
-                    j_but_on_string = Integer.toString(finalJ);
-                    classRoomXD[finalJ] = documentSnapshot.getString("Class 0" + j_but_on_string);
+                    j_but_on_string = Integer.toString(j);
+                    classRoomXD[j] = documentSnapshot.getString("Class 0" + j_but_on_string);
 
-                    if(classRoomXD[finalJ].equals("")){
-                        classRoomXD[finalJ] = null;
+                    if(classRoomXD[j].equals("")){
+                        classRoomXD[j] = null;
                     }
-                    PDFList(classRoomXD[finalJ]);
+                    PDFList(classRoomXD[j]);
                 }
             }
         });

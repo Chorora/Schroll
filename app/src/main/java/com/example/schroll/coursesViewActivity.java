@@ -74,7 +74,6 @@ public class coursesViewActivity extends AppCompatActivity {
                                                     Model.setName(title);
                                                     Model.setData(dt);
                                                     documentsArrayList.add(Model);
-                                                    System.out.println("Done");
                                                     recyclerView = findViewById(R.id.recyclerview2);
                                                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                                                     recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -1,5 +1,6 @@
 package com.example.schroll;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,9 +10,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +35,7 @@ public class addStudentActivity extends AppCompatActivity implements AdapterView
     Spinner spinner;
     DocumentReference studentProfileRef, userAccessRef, gradesRef, courseRef;
     Button registerStudentButton;
-    String classSelected;
+    String classSelected, mail = "admin@mail.com", password ="admin123";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,15 +128,32 @@ public class addStudentActivity extends AppCompatActivity implements AdapterView
                     }
 
                     Toast.makeText(addStudentActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
-                    finish();
-
-                    // The last issue im facing/trying to solve is that after when i create an account for a student, if i exit the app and come back it will sign-in directly to that student's account and not into admin account
                 }
             });
+
+            reSignTheAdmin();
+
         }
         else if (studentemail.equals("") && studentpassword.equals("")) {
 
             Toast.makeText(addStudentActivity.this, "You must write the email and/or the password", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void reSignTheAdmin() {
+        fAuth.signInWithEmailAndPassword(mail, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                startActivity(new Intent(getApplicationContext(), MainActivity3.class));
+                finish();
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(addStudentActivity.this, "Failed to reLogin the admin", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

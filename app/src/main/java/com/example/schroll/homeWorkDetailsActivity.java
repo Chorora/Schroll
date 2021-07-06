@@ -58,7 +58,6 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         homeWorkDescription = findViewById(R.id.descriptionView);
 
         button.setEnabled(false);
-
         fileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +132,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 12 && resultCode == RESULT_OK && data != null && data.getData() != null){
             button.setEnabled(true);
+            button.setBackgroundColor(getResources().getColor(R.color.green_1));
             fileIcon.setImageResource(R.drawable.file_selected_icon_1);
             Toast.makeText(this, " PDF file selected", Toast.LENGTH_SHORT).show();
 

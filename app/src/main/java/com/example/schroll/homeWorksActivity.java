@@ -38,7 +38,6 @@ public class homeWorksActivity extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID4 = fAuth.getCurrentUser().getUid();
-        getSupportActionBar().setTitle("Home works");
 
         hw01 = findViewById(R.id.homeWorkCourse);
         hwdd01 = findViewById(R.id.hwView);

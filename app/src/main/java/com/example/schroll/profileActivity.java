@@ -40,7 +40,7 @@ public class profileActivity extends AppCompatActivity {
     private static final String KEY_PHONE = "Phone";
 
     private TextView Name, Surname,Age, Class, phone, address;
-    private ImageView imageView, editIcon1, editIcon2;
+    private ImageView imageView;
     private AutoCompleteTextView Address;
     private EditText Phone;
     Button imageUpdate;
@@ -53,7 +53,6 @@ public class profileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setTitle("Profile");
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
@@ -89,8 +88,7 @@ public class profileActivity extends AppCompatActivity {
                     Age.setText(documentSnapshot.get("Age").toString());
                     Class.setText(documentSnapshot.getString("Class"));
                     address.setText(documentSnapshot.getString("Address"));
-                    String fullPhone = "+213 "+documentSnapshot.get("Phone").toString();
-                    phone.setText(fullPhone);
+                    phone.setText(documentSnapshot.get("Phone").toString());
             }
         });
 
@@ -116,10 +114,9 @@ public class profileActivity extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         DocumentReference userRef = fStore.collection("Students").document(userID);
 
-        int Phone = Integer.parseInt(phone);
         Map<String, Object> Loc = new HashMap<>();
          Loc.put(KEY_ADDRESS, address);
-         Loc.put(KEY_PHONE, Phone);
+         Loc.put(KEY_PHONE, phone);
         userRef.set(Loc, SetOptions.merge())
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

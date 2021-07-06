@@ -70,6 +70,7 @@ public class uploadCourseActivity extends AppCompatActivity {
         if (requestCode == 15 && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             button.setEnabled(true);
+            button.setBackgroundColor(getResources().getColor(R.color.green_1));
             Toast.makeText(this, " PDF file selected", Toast.LENGTH_SHORT).show();
             fileIcon.setImageResource(R.drawable.file_selected_icon_1);
 

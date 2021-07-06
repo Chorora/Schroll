@@ -1,5 +1,6 @@
 package com.example.schroll;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,9 +11,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +38,7 @@ public class addTeacherActivity extends AppCompatActivity implements AdapterView
     CheckBox cbClass01, cbClass02, cbClass03, cbClass04;
     Button registerTeacherButton;
     Spinner spinner;
-    String specialtySelected;
+    String specialtySelected, mail = "admin@mail.com", password = "admin123";
     int j;
 
 
@@ -89,7 +92,7 @@ public class addTeacherActivity extends AppCompatActivity implements AdapterView
             });
         }
 
- }
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -101,77 +104,100 @@ public class addTeacherActivity extends AppCompatActivity implements AdapterView
         Toast.makeText(this, "No Class has been selected", Toast.LENGTH_SHORT).show();
     }
 
-            public void registerTeacher(View v){
-                String teachername, teachersurname, teacheremail, teacherpassword, teacherphone, teacheraddress;
+    public void registerTeacher(View v) {
+        String teachername, teachersurname, teacheremail, teacherpassword, teacherphone, teacheraddress;
 
-                teachername = teacherName.getText().toString();
-                teachersurname = teacherSurname.getText().toString().trim();
-                teacherphone = teacherPhone.getText().toString().trim();
-                teacheraddress = teacherAddress.getText().toString();
-                teacheremail = teacherEmail.getText().toString().trim();
-                teacherpassword = teacherPassword.getText().toString().trim();
+        teachername = teacherName.getText().toString();
+        teachersurname = teacherSurname.getText().toString().trim();
+        teacherphone = teacherPhone.getText().toString().trim();
+        teacheraddress = teacherAddress.getText().toString();
+        teacheremail = teacherEmail.getText().toString().trim();
+        teacherpassword = teacherPassword.getText().toString().trim();
 
-                if ( !teacheremail.equals("") && !teacherpassword.equals("") ) {
-                    if ((cbClass02.isChecked() || cbClass02.isChecked() || cbClass03.isChecked() || cbClass04.isChecked())) {
-                        fAuth.createUserWithEmailAndPassword(teacheremail, teacherpassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                FirebaseUser user = fAuth.getCurrentUser();
-                                String userID = user.getUid();
-                                teacherProfileRef = fStore.collection("Users").document(userID);
-                                Map<String, Object> userInfo = new HashMap<>();
-                                userInfo.put("Name", teachername);
-                                userInfo.put("Surname", teachersurname);
-                                userInfo.put("Address", teacheraddress);
-                                userInfo.put("Phone", teacherphone);
-                                userInfo.put("Specialty", specialtySelected);
-                                String type = "Teacher";
-                                userInfo.put("Type", type);
+        if (!teacheremail.equals("") && !teacherpassword.equals("")) {
+            if ((cbClass02.isChecked() || cbClass02.isChecked() || cbClass03.isChecked() || cbClass04.isChecked())) {
+                fAuth.createUserWithEmailAndPassword(teacheremail, teacherpassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser user = fAuth.getCurrentUser();
+                        String userID = user.getUid();
+                        teacherProfileRef = fStore.collection("Users").document(userID);
+                        Map<String, Object> userInfo = new HashMap<>();
+                        userInfo.put("Name", teachername);
+                        userInfo.put("Surname", teachersurname);
+                        userInfo.put("Address", teacheraddress);
+                        userInfo.put("Phone", teacherphone);
+                        userInfo.put("Specialty", specialtySelected);
+                        String type = "Teacher";
+                        userInfo.put("Type", type);
 
+                        if (cbClass01.isChecked()) {
+                            // to trim the class name and form it as class code when i store it in the database
+                            String X = cbClass02.getText().toString().substring(6,7);
+                            String Y = cbClass02.getText().toString().substring(10,11);
+                            userInfo.put("Class 01", "Class " +X +"_" +Y);
+                        }
+                         if (!cbClass01.isChecked()) {
+                            userInfo.put("Class 01", "");
+                        }
+                         if (cbClass02.isChecked()) {
+                             String X = cbClass02.getText().toString().substring(6,7);
+                             String Y = cbClass02.getText().toString().substring(10,11);
+                            userInfo.put("Class 02", "Class " +X +"_" +Y);
+                        }
+                          if (!cbClass02.isChecked()) {
+                            userInfo.put("Class 02", "");
+                        }
+                         if (cbClass03.isChecked()) {
+                             String X = cbClass02.getText().toString().substring(6,7);
+                             String Y = cbClass02.getText().toString().substring(10,11);
+                            userInfo.put("Class 03", "Class " +X +"_" +Y);
+                        }
+                         if (!cbClass03.isChecked()) {
+                            userInfo.put("Class 03", "");
+                        }
+                         if (cbClass04.isChecked()) {
+                             String X = cbClass02.getText().toString().substring(6,7);
+                             String Y = cbClass02.getText().toString().substring(10,11);
+                            userInfo.put("Class 04", "Class " +X +"_" +Y);
+                        }
+                         if (!cbClass04.isChecked()) {
+                            userInfo.put("Class 04", "");
+                        }
 
-                                if (cbClass01.isChecked()) {
-                                    userInfo.put("Class 01", cbClass01.getText().toString());
-                                } else if (!cbClass01.isChecked()) {
-                                    userInfo.put("Class 01", "");
-                                    if (cbClass02.isChecked()) {
-                                        userInfo.put("Class 02", cbClass02.getText().toString());
-                                    }
-                                } else if (!cbClass02.isChecked()) {
-                                    userInfo.put("Class 02", "");
-                                }
-                                if (cbClass03.isChecked()) {
-                                    userInfo.put("Class 03", cbClass03.getText().toString());
-                                } else if (!cbClass03.isChecked()) {
-                                    userInfo.put("Class 03", "");
-                                    if (cbClass04.isChecked()) {
-                                        userInfo.put("Class 04", cbClass04.getText().toString());
-                                    }
-                                } else if (!cbClass04.isChecked()) {
-                                    userInfo.put("Class 04", "");
-                                }
+                        teacherProfileRef.set(userInfo);
 
-                                teacherProfileRef.set(userInfo);
-
-                                Toast.makeText(addTeacherActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        });
+                        Toast.makeText(addTeacherActivity.this, "Account Created", Toast.LENGTH_SHORT).show();
                     }
-                    else if (!cbClass01.isChecked() && !cbClass02.isChecked() && !cbClass03.isChecked() && !cbClass04.isChecked()) {
 
-                        Toast.makeText(addTeacherActivity.this, "You must choose at least class", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                });
 
-                else if (teacheremail.equals("") && teacherpassword.equals("")) {
+                reSignTheAdmin();
 
-                    Toast.makeText(addTeacherActivity.this, "You must write the email and/or the password", Toast.LENGTH_SHORT).show();
-                }
+            } else if (!cbClass01.isChecked() && !cbClass02.isChecked() && !cbClass03.isChecked() && !cbClass04.isChecked()) {
 
+                Toast.makeText(addTeacherActivity.this, "You must choose at least class", Toast.LENGTH_SHORT).show();
+            }
+        } else if (teacheremail.equals("") && teacherpassword.equals("")) {
 
+            Toast.makeText(addTeacherActivity.this, "You must write the email and/or the password", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void reSignTheAdmin() {
+        fAuth.signInWithEmailAndPassword(mail, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                startActivity(new Intent(getApplicationContext(), MainActivity3.class));
+                finish();
             }
 
-    // The last issue im facing/trying to solve is that after when i create an account for a student, if i exit the app and come back it will sign-in directly to that student's account and not into admin account
-
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(addTeacherActivity.this, "Failed to reLogin the admin", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
 

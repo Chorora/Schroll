@@ -59,8 +59,6 @@ public class Course_01_Activity extends AppCompatActivity {
         Chapter03Description = findViewById(R.id.chapterDescription3);
         courseImage = findViewById(R.id.courseImage);
 
-        getSupportActionBar().setTitle("Course details");
-
         Intent intent = getIntent();
         int courseNumber = intent.getIntExtra(MainActivity.EXTRA_TEXT, -1);
 

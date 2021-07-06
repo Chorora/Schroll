@@ -31,7 +31,6 @@ public class GradesActivity extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID3 = fAuth.getCurrentUser().getUid();
-        getSupportActionBar().setTitle("Grades");
 
         courseNameView1 = findViewById(R.id.courseView1);
         courseNameView2 = findViewById(R.id.courseView2);

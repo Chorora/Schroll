@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static final String EXTRA_TEXT = "EXTRA_POSITION";
     public static final String EXTRA_TEXT2 = "EXTRA_POSITION2";
-    public static final String EXTRA_NAME = "EXTRA_NAME";
-
     private static final String TAG = "MainActivity";
     public String Year;
 
@@ -102,20 +100,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void displayCourseName(String Year) {
         int i;
-        final String[] c1 = {null};
-        final String[] c2 = {null};
-        final String[] c11 = {null};
-        final String[] c22 = {null};
-        final String[] c3 = {null};
-        final String[] c33 = {null};
-        final String[] c4 = {null};
-        final String[] c44 = {null};
-        final String[] c5 = {null};
-        final String[] c55 = {null};
-        final String[] c6 = {null};
-        final String[] c66 = {null};
-        final String[] c7 = {null};
-        final String[] c77 = {null};
+        final String[] c1 = {null, null, null, null, null, null};
+        final String[] c2 = {null, null, null, null, null, null, null, null};
+
 
         for (i = 1; i <= 7; i++) {
             DocumentReference documentReference = fStore.collection("Year" + Year + " Courses").document("Matiere 0" + i);
@@ -125,42 +112,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     if (finalI == 1) {
                         c1[0] = documentSnapshot.getString("Name");
-                        c11[0] = documentSnapshot.getString("Description");
+                        c1[1] = documentSnapshot.getString("Description");
                     }
 
                     if (finalI == 2) {
-                        c2[0] = documentSnapshot.getString("Name");
-                        c22[0] = documentSnapshot.getString("Description");
+                        c1[2] = documentSnapshot.getString("Name");
+                        c1[3] = documentSnapshot.getString("Description");
                     }
 
                     if (finalI == 3) {
-                        c3[0] = documentSnapshot.getString("Name");
-                        c33[0] = documentSnapshot.getString("Description");
+                        c1[4] = documentSnapshot.getString("Name");
+                        c1[5] = documentSnapshot.getString("Description");
                     }
-                    featuredRecycler(c1[0], c11[0], c2[0], c22[0], c3[0], c33[0]);
+                    featuredRecycler(c1[0], c1[1], c1[2], c1[3], c1[4], c1[5]);
 
                     if (finalI == 4) {
-                        c4[0] = documentSnapshot.getString("Name");
-                        c44[0] = documentSnapshot.getString("Description");
+                        c2[0] = documentSnapshot.getString("Name");
+                        c2[1] = documentSnapshot.getString("Description");
                     }
 
                     if (finalI == 5) {
-                        c5[0] = documentSnapshot.getString("Name");
-                        c55[0] = documentSnapshot.getString("Description");
+                        c2[2] = documentSnapshot.getString("Name");
+                        c2[3] = documentSnapshot.getString("Description");
                     }
 
                     if (finalI == 6) {
-                        c6[0] = documentSnapshot.getString("Name");
-                        c66[0] = documentSnapshot.getString("Description");
+                        c2[4] = documentSnapshot.getString("Name");
+                        c2[5] = documentSnapshot.getString("Description");
                     }
 
                     if (finalI == 7) {
-                        c7[0] = documentSnapshot.getString("Name");
-                        c77[0] = documentSnapshot.getString("Description");
+                        c2[6] = documentSnapshot.getString("Name");
+                        c2[7] = documentSnapshot.getString("Description");
                     }
 
-                    othersRecycler(c4[0], c44[0], c5[0], c55[0], c6[0], c66[0], c7[0], c77[0]);
-
+                    othersRecycler(c2[0], c2[1], c2[2], c2[3], c2[4], c2[5], c2[6], c2[7]);
                 }
             });
         }

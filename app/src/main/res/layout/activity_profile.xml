@@ -170,7 +170,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="e.g: 5698564564"
-        android:inputType="number"
+        android:inputType="text"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

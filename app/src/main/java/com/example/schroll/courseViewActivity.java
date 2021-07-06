@@ -29,7 +29,6 @@ public class courseViewActivity extends AppCompatActivity {
     EditText gradeHW;
     TextView textView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
