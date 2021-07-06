@@ -16,38 +16,46 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Schroll">
-        <activity android:name=".addStudentActivity"></activity>
-        <activity android:name=".MainActivity3" />
-        <activity android:name=".courseViewActivity" />
-        <activity android:name=".coursesViewActivity" />
-        <activity android:name=".uploadCourseActivity" />
-        <activity android:name=".chooseClassroomActivity2" />
-        <activity android:name=".chooseClassroomActivity" />
-        <activity android:name=".editHomeWorkActivity" />
-        <activity android:name=".MainActivity2" />
-        <activity android:name=".pdf_list" />
+
+        <activity android:name=".addTeacherActivity" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".addStudentActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MainActivity3" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".courseViewActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".coursesViewActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".uploadCourseActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".chooseClassroomActivity2" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".chooseClassroomActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".editHomeWorkActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MainActivity2" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".pdf_list" android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".exercicePDFs"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".homeWorkDetailsActivity" />
+
+        <activity
+            android:name=".homeWorkDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".homeWorksActivity"
-            android:parentActivityName=".MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".GradesActivity"
-            android:parentActivityName=".MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TimeTableActivity"
-            android:parentActivityName=".MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".announcementsActivity"
-            android:parentActivityName=".MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Course_01_Activity"
-            android:parentActivityName=".MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".profileActivity"
-            android:parentActivityName=".MainActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".loginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -57,6 +65,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />

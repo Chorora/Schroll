@@ -20,6 +20,10 @@ public class MainActivity3 extends AppCompatActivity {
         startActivity(new Intent(this,addStudentActivity.class));
     }
 
+    public void addTeacher(View v){
+        startActivity(new Intent(this,addTeacherActivity.class));
+    }
+
     public void signOut(View v){
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), loginActivity.class));

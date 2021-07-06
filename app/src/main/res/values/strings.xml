@@ -10,5 +10,15 @@
         <item>2 A 1</item>
         <item>2 A 2</item>
     </string-array>
-    
+
+    <string-array name="Specialties">
+        <item>Math</item>
+        <item>Science</item>
+        <item>Physics</item>
+        <item>Islamic</item>
+        <item>Arabic</item>
+        <item>Art</item>
+        <item>English</item>
+    </string-array>
+
 </resources>
