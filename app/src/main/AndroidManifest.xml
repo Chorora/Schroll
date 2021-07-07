@@ -16,10 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Schroll">
-
-        <activity android:name=".addGradesActivity"
+        <activity android:name=".teachProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".addGradesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".addTeacherActivity"
             android:theme="@style/AppTheme.NoActionBar" />
