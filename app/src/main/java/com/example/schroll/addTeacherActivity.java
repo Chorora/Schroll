@@ -133,8 +133,8 @@ public class addTeacherActivity extends AppCompatActivity implements AdapterView
 
                         if (cbClass01.isChecked()) {
                             // to trim the class name and form it as class code when i store it in the database
-                            String X = cbClass02.getText().toString().substring(6,7);
-                            String Y = cbClass02.getText().toString().substring(10,11);
+                            String X = cbClass01.getText().toString().substring(6,7);
+                            String Y = cbClass01.getText().toString().substring(10,11);
                             userInfo.put("Class 01", "Class " +X +"_" +Y);
                         }
                          if (!cbClass01.isChecked()) {
@@ -149,16 +149,16 @@ public class addTeacherActivity extends AppCompatActivity implements AdapterView
                             userInfo.put("Class 02", "");
                         }
                          if (cbClass03.isChecked()) {
-                             String X = cbClass02.getText().toString().substring(6,7);
-                             String Y = cbClass02.getText().toString().substring(10,11);
+                             String X = cbClass03.getText().toString().substring(6,7);
+                             String Y = cbClass03.getText().toString().substring(10,11);
                             userInfo.put("Class 03", "Class " +X +"_" +Y);
                         }
                          if (!cbClass03.isChecked()) {
                             userInfo.put("Class 03", "");
                         }
                          if (cbClass04.isChecked()) {
-                             String X = cbClass02.getText().toString().substring(6,7);
-                             String Y = cbClass02.getText().toString().substring(10,11);
+                             String X = cbClass04.getText().toString().substring(6,7);
+                             String Y = cbClass04.getText().toString().substring(10,11);
                             userInfo.put("Class 04", "Class " +X +"_" +Y);
                         }
                          if (!cbClass04.isChecked()) {

@@ -70,7 +70,7 @@ public class addGradesActivity extends AppCompatActivity {
                         student1 = new Students(surName, studentID);
                         studentsList.add(student1);
                     }
-                    ArrayAdapter<Students> adapter = new ArrayAdapter<Students>(getApplicationContext(), android.R.layout.simple_spinner_item, studentsList);
+                    ArrayAdapter<Students> adapter = new ArrayAdapter<Students>(getApplicationContext(), R.layout.spinner_item, studentsList);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
 
