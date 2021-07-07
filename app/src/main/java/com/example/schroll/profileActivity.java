@@ -88,7 +88,7 @@ public class profileActivity extends AppCompatActivity {
                     Age.setText(documentSnapshot.get("Age").toString());
                     Class.setText(documentSnapshot.getString("Class"));
                     address.setText(documentSnapshot.getString("Address"));
-                    phone.setText(documentSnapshot.getString("Phone").toString());
+                    phone.setText(documentSnapshot.getString("Phone"));
             }
         });
 
