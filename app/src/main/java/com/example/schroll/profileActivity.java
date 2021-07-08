@@ -60,7 +60,7 @@ public class profileActivity extends AppCompatActivity {
 
         Name = findViewById(R.id.nameView);
         Surname = findViewById(R.id.surnameView);
-        Age = findViewById(R.id.specialtyView);
+        Age = findViewById(R.id.ageView);
         Class = findViewById(R.id.classView);
         Address = findViewById(R.id.addressEditView);
         address = findViewById(R.id.addressView2);
