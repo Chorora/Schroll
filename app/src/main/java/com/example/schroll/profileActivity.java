@@ -82,13 +82,17 @@ public class profileActivity extends AppCompatActivity {
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-
-                    Name.setText(documentSnapshot.getString("Name"));
-                    Surname.setText(documentSnapshot.getString("Surname"));
-                    Age.setText(documentSnapshot.get("Age").toString());
-                    Class.setText(documentSnapshot.getString("Class"));
-                    address.setText(documentSnapshot.getString("Address"));
-                    phone.setText(documentSnapshot.getString("Phone"));
+                    if (documentSnapshot.exists()) {
+                        Name.setText(documentSnapshot.getString("Name"));
+                        Surname.setText(documentSnapshot.getString("Surname"));
+                        Age.setText(documentSnapshot.get("Age").toString());
+                        Class.setText(documentSnapshot.getString("Class"));
+                        address.setText(documentSnapshot.getString("Address"));
+                        phone.setText(documentSnapshot.getString("Phone"));
+                    }
+                    else {
+                        Toast.makeText(profileActivity.this, "Profile Document doesn't exist", Toast.LENGTH_SHORT).show();
+                    }
             }
         });
 
