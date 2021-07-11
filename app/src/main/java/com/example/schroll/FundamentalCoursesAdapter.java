@@ -11,27 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FundamentalCoursesAdapter extends RecyclerView.Adapter<FundamentalCoursesAdapter.FeaturedViewHolder> {
+public class FundamentalCoursesAdapter extends RecyclerView.Adapter<FundamentalCoursesAdapter.fundamentalViewHolder> {
 
-    private ArrayList<FundamentalCoursesHelper> featuredLocations;
+    private ArrayList<FundamentalCoursesHelper> fundamentalLocations;
     private onCourseListener mOnCourseListener;
 
-    public FundamentalCoursesAdapter(ArrayList<FundamentalCoursesHelper> featuredLocations, onCourseListener oncourseListener) {
-        this.featuredLocations = featuredLocations;
+    public FundamentalCoursesAdapter(ArrayList<FundamentalCoursesHelper> fundamentalLocations, onCourseListener oncourseListener) {
+        this.fundamentalLocations = fundamentalLocations;
         this.mOnCourseListener = oncourseListener;
     }
 
     @NonNull
     @Override
-    public FeaturedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public fundamentalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fundamental_courses_card_design,parent,false);
-       FeaturedViewHolder featuredViewHolder = new FeaturedViewHolder(view, mOnCourseListener);
-        return featuredViewHolder;
+       fundamentalViewHolder fundamentalViewHolder = new fundamentalViewHolder(view, mOnCourseListener);
+        return fundamentalViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeaturedViewHolder holder, int position) {
-        FundamentalCoursesHelper fundamentalCoursesHelper = featuredLocations.get(position);
+    public void onBindViewHolder(@NonNull fundamentalViewHolder holder, int position) {
+        FundamentalCoursesHelper fundamentalCoursesHelper = fundamentalLocations.get(position);
         holder.courseImage.setImageResource(fundamentalCoursesHelper.getCourseImage());
         holder.courseTitle.setText(fundamentalCoursesHelper.getCourseTitle());
         holder.courseDesc.setText(fundamentalCoursesHelper.getCourseDesc());
@@ -39,15 +39,15 @@ public class FundamentalCoursesAdapter extends RecyclerView.Adapter<FundamentalC
 
     @Override
     public int getItemCount() {
-        return featuredLocations.size();
+        return fundamentalLocations.size();
     }
 
 
-    public static class FeaturedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class fundamentalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView courseImage;
         TextView courseTitle, courseDesc;
         onCourseListener mOncourseListener;
-        public FeaturedViewHolder(@NonNull View itemView, onCourseListener oncourseListener) {
+        public fundamentalViewHolder(@NonNull View itemView, onCourseListener oncourseListener) {
             super(itemView);
             //Hooks of the recycler view
             courseImage = itemView.findViewById(R.id.courseImage01);

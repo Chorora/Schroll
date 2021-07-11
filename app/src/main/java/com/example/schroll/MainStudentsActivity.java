@@ -33,8 +33,8 @@ public class MainStudentsActivity extends AppCompatActivity implements Navigatio
     NavigationView navigationView;
     Toolbar toolbar;
     MenuItem nav_out;
-    RecyclerView featuredRecycler, othersRecycler;
-    RecyclerView.Adapter featuredAdapter, othersAdapter;
+    RecyclerView fundamentalCoursesRecycler, otherCoursesRecycler;
+    RecyclerView.Adapter fundamentalCoursesAdapter, otherCoursesAdapter;
 
     public static final String EXTRA_TEXT = "EXTRA_POSITION";
     public static final String EXTRA_TEXT2 = "EXTRA_POSITION2";
@@ -53,8 +53,8 @@ public class MainStudentsActivity extends AppCompatActivity implements Navigatio
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID5 = fAuth.getCurrentUser().getUid();
-        featuredRecycler = findViewById(R.id.featured_recycler);
-        othersRecycler = findViewById(R.id.othersRecycler);
+        fundamentalCoursesRecycler = findViewById(R.id.featured_recycler);
+        otherCoursesRecycler = findViewById(R.id.othersRecycler);
 
         // ------------- Related to action bar ----------------
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -155,34 +155,34 @@ public class MainStudentsActivity extends AppCompatActivity implements Navigatio
 
     private void featuredRecycler(String c1, String c11, String c2, String c22, String c3, String c33) {
 
-        featuredRecycler.setHasFixedSize(true);
-        featuredRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        fundamentalCoursesRecycler.setHasFixedSize(true);
+        fundamentalCoursesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        ArrayList<FundamentalCoursesHelper> featuredLocations = new ArrayList<>();
+        ArrayList<FundamentalCoursesHelper> fundamentalCourseCard = new ArrayList<>();
 
-        featuredLocations.add(new FundamentalCoursesHelper(R.drawable.math_logo, c1, c11));
-        featuredLocations.add(new FundamentalCoursesHelper(R.drawable.science_logo, c2, c22));
-        featuredLocations.add(new FundamentalCoursesHelper(R.drawable.physics_logo, c3, c33));
+        fundamentalCourseCard.add(new FundamentalCoursesHelper(R.drawable.math_logo, c1, c11));
+        fundamentalCourseCard.add(new FundamentalCoursesHelper(R.drawable.science_logo, c2, c22));
+        fundamentalCourseCard.add(new FundamentalCoursesHelper(R.drawable.physics_logo, c3, c33));
 
-        featuredAdapter = new FundamentalCoursesAdapter(featuredLocations, this);
-        featuredRecycler.setAdapter(featuredAdapter);
+        fundamentalCoursesAdapter = new FundamentalCoursesAdapter(fundamentalCourseCard, this);
+        fundamentalCoursesRecycler.setAdapter(fundamentalCoursesAdapter);
     }
 
 
     private void othersRecycler(String c4, String c44, String c5, String c55, String c6, String c66, String c7, String c77) {
 
-        othersRecycler.setHasFixedSize(true);
-        othersRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        otherCoursesRecycler.setHasFixedSize(true);
+        otherCoursesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        ArrayList<OtherCoursesHelper> othersLocations = new ArrayList<>();
+        ArrayList<OtherCoursesHelper> otherCoursesCard = new ArrayList<>();
 
-        othersLocations.add(new OtherCoursesHelper(R.drawable.art_logo, c4, c44));
-        othersLocations.add(new OtherCoursesHelper(R.drawable.islam_logo, c5, c55));
-        othersLocations.add(new OtherCoursesHelper(R.drawable.arabic_logo, c6, c66));
-        othersLocations.add(new OtherCoursesHelper(R.drawable.english_logo, c7, c77));
+        otherCoursesCard.add(new OtherCoursesHelper(R.drawable.art_logo, c4, c44));
+        otherCoursesCard.add(new OtherCoursesHelper(R.drawable.islam_logo, c5, c55));
+        otherCoursesCard.add(new OtherCoursesHelper(R.drawable.arabic_logo, c6, c66));
+        otherCoursesCard.add(new OtherCoursesHelper(R.drawable.english_logo, c7, c77));
 
-        othersAdapter = new OtherCoursesAdapter(othersLocations, this);
-        othersRecycler.setAdapter(othersAdapter);
+        otherCoursesAdapter = new OtherCoursesAdapter(otherCoursesCard, this);
+        otherCoursesRecycler.setAdapter(otherCoursesAdapter);
     }
 
 
