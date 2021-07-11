@@ -61,28 +61,46 @@ public class loginActivity extends AppCompatActivity {
             typeOfUserRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    if(documentSnapshot.exists()){
+                    if (documentSnapshot.exists()) {
+
                         Type = documentSnapshot.getString("Type");
 
-                        if(Type.equals("Student")){
-                            startActivity(new Intent(getApplicationContext(), MainStudentsActivity.class));
-                            finish();
+                        switch (Type) {
+                            case "Student":
+                                startActivity(new Intent(getApplicationContext(), MainStudentsActivity.class));
+                                finish();
+                                break;
+
+                            case "Teacher":
+                                specialty = documentSnapshot.getString("Specialty");
+                                Intent intent = new Intent(getApplicationContext(), MainTeachersActivity.class);
+                                intent.putExtra(EXTRA_SPECIALTY, specialty);
+                                startActivity(intent);
+                                finish();
+                                break;
+
+                            case "Admin":
+                                startActivity(new Intent(getApplicationContext(), MainAdminActivity.class));
+                                finish();
+                                break;
                         }
-                        else if(Type.equals("Teacher")){
-                            specialty = documentSnapshot.getString("Specialty");
-                            Intent intent = new Intent(getApplicationContext(), MainTeachersActivity.class);
-                            intent.putExtra(EXTRA_SPECIALTY, specialty);
-                            startActivity(intent);
-                            finish();
-                        }
-                        else if (Type.equals("Admin")){
-                            startActivity(new Intent(getApplicationContext(), MainAdminActivity.class));
-                            finish();}
+                        Toast.makeText(loginActivity.this, "You successfully logged in", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(loginActivity.this, "User's document hasn't been found", Toast.LENGTH_SHORT).show();
+                        signMeOut();
                     }
                 }
+
             });
+        } else {
+            login();
         }
-        else{ login();}
+    }
+
+    public void signMeOut(){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(), loginActivity.class));
+        finish();
     }
 
     protected void login() {
@@ -101,12 +119,12 @@ public class loginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //validate credentials
-                if (email.getText().toString().isEmpty()){
+                if (email.getText().toString().isEmpty()) {
                     email.setError("Email is missing");
                     return;
                 }
 
-                if (password.getText().toString().isEmpty()){
+                if (password.getText().toString().isEmpty()) {
                     password.setError("Password is missing");
                 }
 
@@ -114,14 +132,15 @@ public class loginActivity extends AppCompatActivity {
                 firebaseAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(loginActivity.this, "You successfully logged in", Toast.LENGTH_SHORT).show();
+
                         dependUser();
+
                     }
 
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(loginActivity.this,"Email or password is invalid", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(loginActivity.this, "Email or password is invalid", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -130,7 +149,7 @@ public class loginActivity extends AppCompatActivity {
     }
 
 
-    public void dependUser(){
+    public void dependUser() {
         userID = fAuth.getCurrentUser().getUid();
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -139,27 +158,52 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-                Type = documentSnapshot.getString("Type");
-               if (Type.equals("Student")){
-                   startActivity(new Intent(getApplicationContext(), MainStudentsActivity.class));
-                   finish();}
-               if(Type.equals("Teacher")) {
-                   specialty = documentSnapshot.getString("Specialty");
-                   Intent intent = new Intent(getApplicationContext(), MainTeachersActivity.class);
-                   intent.putExtra(EXTRA_TYPE, Type);
-                   intent.putExtra(EXTRA_SPECIALTY, specialty);
-                   startActivity(intent);
-                   finish();}
-                if (Type.equals("Admin")){
-                    startActivity(new Intent(getApplicationContext(), MainAdminActivity.class));
-                    finish();}
+                if (documentSnapshot.exists()) {
+
+                    if (documentSnapshot.contains("Type")) {
+
+                        Type = documentSnapshot.getString("Type");
+
+                        if (!Type.equals("")) {
+                            switch (Type) {
+
+                                case "Student":
+                                    startActivity(new Intent(getApplicationContext(), MainStudentsActivity.class));
+                                    finish();
+                                    break;
+
+                                case "Teacher":
+                                    specialty = documentSnapshot.getString("Specialty");
+                                    Intent intent = new Intent(getApplicationContext(), MainTeachersActivity.class);
+                                    intent.putExtra(EXTRA_TYPE, Type);
+                                    intent.putExtra(EXTRA_SPECIALTY, specialty);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+
+                                case "Admin":
+                                    startActivity(new Intent(getApplicationContext(), MainAdminActivity.class));
+                                    finish();
+                                    break;
+                            }
+                            Toast.makeText(loginActivity.this, "You successfully logged in", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(loginActivity.this, "Type field is empty", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(loginActivity.this, "Type field isn't found", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(loginActivity.this, "User's document hasn't been found", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
 
     public void forgetText(View view) {
-        view = inflater.inflate(R.layout.reset_pop,null);
+        view = inflater.inflate(R.layout.reset_pop, null);
         View finalView = view;
         reset_alert.setTitle("Reset Forgot Password ?")
                 .setMessage("Enter your Email to get password reset link")
@@ -169,11 +213,11 @@ public class loginActivity extends AppCompatActivity {
 
                         //validate email
                         EditText email = finalView.findViewById(R.id.emailReset);
-                        if (email.getText().toString().isEmpty()){
+                        if (email.getText().toString().isEmpty()) {
                             email.setError("Required Field");
                             return;
                         }
-                            //send the reset link
+                        //send the reset link
                         firebaseAuth.sendPasswordResetEmail(email.getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -187,7 +231,7 @@ public class loginActivity extends AppCompatActivity {
                         });
                     }
 
-                }).setNegativeButton("Cancel",null)
+                }).setNegativeButton("Cancel", null)
                 .setView(view)
                 .create().show();
     }

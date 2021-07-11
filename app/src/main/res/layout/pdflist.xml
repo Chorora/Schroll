@@ -14,45 +14,40 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="75dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="10sp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginEnd="3dp"
-            android:layout_marginRight="3dp"
             android:padding="2dp"
             app:srcCompat="@drawable/pdf" />
 
         <TextView
-            android:textDirection="anyRtl"
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="25sp"
-            android:layout_marginStart="75dp"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="350sp"
+            android:layout_height="50sp"
+            android:layout_marginStart="05dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="5dp"
             android:layout_toStartOf="@+id/image"
-            android:layout_toLeftOf="@+id/image"
-            android:layout_marginRight="10dp"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="@color/black"
-            android:textSize="16sp" />
-        <TextView
             android:textDirection="anyRtl"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/size"
-            android:layout_width="wrap_content"
+            android:layout_width="50sp"
             android:layout_height="25sp"
             android:layout_marginStart="75dp"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="22dp"
             android:layout_toStartOf="@+id/image"
-            android:layout_toLeftOf="@+id/image"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textDirection="anyRtl"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
