@@ -42,7 +42,7 @@ public class chooseClassroomActivity2 extends AppCompatActivity {
         userID = fAuth.getCurrentUser().getUid();
 
         Intent intent = getIntent();
-        course = intent.getStringExtra(MainActivity2.EXTRA_SPECIALTY2);
+        course = intent.getStringExtra(MainTeachersActivity.EXTRA_SPECIALTY2);
 
         classRoom1 = findViewById(R.id.ClassRoom1);
         classRoom2 = findViewById(R.id.ClassRoom2);

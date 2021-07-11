@@ -21,11 +21,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class coursesViewActivity extends AppCompatActivity {
+public class coursesViewForStudentsActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE2 = "EXTRA_COURSE2";
     public static final String EXTRA_CLASSCODE2 = "EXTRA_CLASSCODE2";
 
-    public static ArrayList<courseModel > documentsArrayList;
+    public static ArrayList<CoursePDFModel> documentsArrayList;
     RecyclerView recyclerView;
     FirebaseStorage documents;
     ProgressBar progress;
@@ -36,13 +36,13 @@ public class coursesViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses_view);
+        setContentView(R.layout.activity_courses_view_for_students);
         progress=findViewById(R.id.progress);
         progress.setVisibility(View.VISIBLE);
 
         Intent intent = getIntent();
-        courseName = intent.getStringExtra(Course_01_Activity.EXTRA_COURSE);
-        classCode = intent.getStringExtra(Course_01_Activity.EXTRA_CLASSCODE);
+        courseName = intent.getStringExtra(courseDetailsActivity.EXTRA_COURSE);
+        classCode = intent.getStringExtra(courseDetailsActivity.EXTRA_CLASSCODE);
         courseList();
     }
 
@@ -61,7 +61,7 @@ public class coursesViewActivity extends AppCompatActivity {
                             title = listResult.getItems().get(j).getName();
                             array[j] = title;
                             System.out.println(j);
-                            courseModel Model = new courseModel();
+                            CoursePDFModel Model = new CoursePDFModel();
                             documentsArrayList = new ArrayList<>();
                             System.out.println(j);
                             String dt= listResult.getItems().get(j).getName();
@@ -77,13 +77,13 @@ public class coursesViewActivity extends AppCompatActivity {
                                                     recyclerView = findViewById(R.id.recyclerview2);
                                                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                                                     recyclerView.setItemAnimator(new DefaultItemAnimator());
-                                                    courseAdapter  adapter = new courseAdapter (getApplicationContext(), documentsArrayList);
+                                                    CoursePDFAdapter adapter = new CoursePDFAdapter(getApplicationContext(), documentsArrayList);
                                                     recyclerView.setAdapter(adapter);
-                                                    adapter.setOnItemClickListener(new courseAdapter.OnItemClickListener() {
+                                                    adapter.setOnItemClickListener(new CoursePDFAdapter.OnItemClickListener() {
 
                                                         @Override
                                                         public void onItemClick(int pos, View v) {
-                                                            Intent intent = new Intent(getApplicationContext(), courseViewActivity.class);
+                                                            Intent intent = new Intent(getApplicationContext(), courseViewForStudentsActivity.class);
                                                             intent.putExtra("pos", pos);
                                                             intent.putExtra(EXTRA_COURSE2, courseName);
                                                             intent.putExtra(EXTRA_CLASSCODE2, classCode);

@@ -33,7 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.HashMap;
 import java.util.Map;
 
-public class exercicePDFs extends AppCompatActivity {
+public class homeworkViewForTeacherActivity extends AppCompatActivity {
     private static final String KEY_GRADE = "Grade";
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     private FirebaseStorage fStorage = FirebaseStorage.getInstance();
@@ -54,16 +54,16 @@ public class exercicePDFs extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exercice_p_d_fs);
+        setContentView(R.layout.activity_homework_view_for_teacher);
         pdfView = findViewById(R.id.pdfView);
         pdf_index = getIntent().getIntExtra("pos", 0);
         mHandler = new Handler();
         handler = new Handler();
-        title = pdf_list.documentArrayList.get(pdf_index).getData();
+        title = homeworksViewForTeacherActivity.documentArrayList.get(pdf_index).getData();
         gradeHW = findViewById(R.id.hwGrade);
         textView = findViewById(R.id.textView17);
         Intent intent = getIntent();
-        course = intent.getStringExtra(pdf_list.EXTRA_COURSE);
+        course = intent.getStringExtra(homeworksViewForTeacherActivity.EXTRA_COURSE);
 
         findStudentID(title);
 
@@ -81,7 +81,7 @@ public class exercicePDFs extends AppCompatActivity {
                     displayPDF(classRoomXD[j]);
                 }
                 if (!documentSnapshot.exists()) {
-                    Toast.makeText(exercicePDFs.this, "Wrong reference for classes", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(homeworkViewForTeacherActivity.this, "Wrong reference for classes", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -91,7 +91,7 @@ public class exercicePDFs extends AppCompatActivity {
 
         fStorageRef = fStorage.getReference().child("Pdf Uploads/" + classRoomXD + "/" + course + "/");
         final long ONE_MEGABYTE = 1024 * 1024;
-        fStorageRef.child(pdf_list.documentArrayList.get(pdf_index).getData()).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        fStorageRef.child(homeworksViewForTeacherActivity.documentArrayList.get(pdf_index).getData()).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 pdfView.fromBytes(bytes).load();
@@ -110,7 +110,7 @@ public class exercicePDFs extends AppCompatActivity {
                         studentID = document.getId();
                     }
                 } else {
-                    Toast.makeText(exercicePDFs.this, "Error getting StudentID", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(homeworkViewForTeacherActivity.this, "Error getting StudentID", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -126,12 +126,12 @@ public class exercicePDFs extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(exercicePDFs.this, "Grade Updated Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(homeworkViewForTeacherActivity.this, "Grade Updated Successfully", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(exercicePDFs.this, "Failed to update the grade", Toast.LENGTH_SHORT).show();
+                Toast.makeText(homeworkViewForTeacherActivity.this, "Failed to update the grade", Toast.LENGTH_SHORT).show();
             }
         });
 

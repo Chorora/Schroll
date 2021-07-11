@@ -17,9 +17,9 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-public class homeWorksActivity extends AppCompatActivity {
+public class homeWorksForStudentActivity extends AppCompatActivity {
 
-    private static final String TAG = "homeWorksActivity";
+    private static final String TAG = "homeWorksForStudentActivity";
     public static final String EXTRA_YEAR = "EXTRA_YEAR";
     public static final int EXTRA_NUMBER2 = 5;
 
@@ -34,7 +34,7 @@ public class homeWorksActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_works);
+        setContentView(R.layout.activity_home_works_for_student);
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID4 = fAuth.getCurrentUser().getUid();
@@ -56,7 +56,7 @@ public class homeWorksActivity extends AppCompatActivity {
         courseName = findViewById(R.id.joko);
 
         Intent intent = getIntent();
-        courseNumber = intent.getIntExtra(String.valueOf(Course_01_Activity.EXTRA_NUMBER), -1);
+        courseNumber = intent.getIntExtra(String.valueOf(courseDetailsActivity.EXTRA_NUMBER), -1);
 
         DocumentReference userRef = fStore.collection("Students").document(userID4);
         userRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -64,7 +64,7 @@ public class homeWorksActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Toast.makeText(homeWorksActivity.this, "Error !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(homeWorksForStudentActivity.this, "Error !", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, e.toString());
                 }
 
@@ -174,7 +174,7 @@ public class homeWorksActivity extends AppCompatActivity {
         hw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), homeWorkDetailsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), homeWorkDetailsForStudentActivity.class);
                 intent.putExtra(String.valueOf(EXTRA_NUMBER2), i);
                 intent.putExtra((EXTRA_YEAR), Year);
                 startActivity(intent);

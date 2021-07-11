@@ -20,9 +20,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Map;
 
-public class Course_01_Activity extends AppCompatActivity {
+public class courseDetailsActivity extends AppCompatActivity {
 
-    private static final String TAG = "Course_01_Activity";
+    private static final String TAG = "courseDetailsActivity";
     public String Year, Classroom, classCode;
     private Map chapter01Map, chapter02Map, chapter03Map;
 
@@ -44,7 +44,7 @@ public class Course_01_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_01_);
+        setContentView(R.layout.activity_course_details);
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID2 = fAuth.getCurrentUser().getUid();
@@ -60,7 +60,7 @@ public class Course_01_Activity extends AppCompatActivity {
         courseImage = findViewById(R.id.courseImage);
 
         Intent intent = getIntent();
-        int courseNumber = intent.getIntExtra(MainActivity.EXTRA_TEXT, -1);
+        int courseNumber = intent.getIntExtra(MainStudentsActivity.EXTRA_TEXT, -1);
 
         if (courseNumber >= 0 && courseNumber <= 2) {
             courseNumber += 1;
@@ -70,7 +70,7 @@ public class Course_01_Activity extends AppCompatActivity {
         }
 
         Intent intent1 = getIntent();
-        int courseNumber2 = intent1.getIntExtra(MainActivity.EXTRA_TEXT2, 2);
+        int courseNumber2 = intent1.getIntExtra(MainStudentsActivity.EXTRA_TEXT2, 2);
         if (courseNumber2 >= 3) {
             courseNumber2 += 1;
             in = String.valueOf(courseNumber2);
@@ -88,7 +88,7 @@ public class Course_01_Activity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Toast.makeText(Course_01_Activity.this, "Error !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(courseDetailsActivity.this, "Error !", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, e.toString());
                 }
                 if (documentSnapshot.exists()) {
@@ -195,14 +195,14 @@ public class Course_01_Activity extends AppCompatActivity {
         else if (courseNumberX >=4 && courseNumberX <= 7){
              N = courseNumberX;
         }
-        Intent intent = new Intent(this, homeWorkDetailsActivity.class);
+        Intent intent = new Intent(this, homeWorkDetailsForStudentActivity.class);
         intent.putExtra(String.valueOf(EXTRA_NUMBER), N);
         intent.putExtra(EXTRA_YEARS, Year);
         startActivity(intent);
     }
 
     public void viewLessons(View v){
-        Intent intent = new Intent(this,coursesViewActivity.class);
+        Intent intent = new Intent(this, coursesViewForStudentsActivity.class);
         intent.putExtra(EXTRA_COURSE, courseName);
         intent.putExtra(EXTRA_CLASSCODE, classCode);
         startActivity(intent);

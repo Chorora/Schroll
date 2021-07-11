@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class PdfAdapter extends RecyclerView.Adapter<PdfAdapter .viewHolder> {
+public class HomeworkPDFAdapter extends RecyclerView.Adapter<HomeworkPDFAdapter.viewHolder> {
 
     Context context;
-    ArrayList<com.example.schroll.pdfmodel> pdfArrayList;
+    ArrayList<HomeworkPDFModel> pdfArrayList;
     public OnItemClickListener onItemClickListener;
 
-    public PdfAdapter (Context context, ArrayList<com.example.schroll.pdfmodel> pdfArrayList) {
+    public HomeworkPDFAdapter(Context context, ArrayList<HomeworkPDFModel> pdfArrayList) {
         this.context = context;
         this.pdfArrayList = pdfArrayList;
     }
@@ -44,8 +44,8 @@ public class PdfAdapter extends RecyclerView.Adapter<PdfAdapter .viewHolder> {
         ImageView image;
         public viewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-            image= (ImageView) itemView.findViewById(R.id.image);
+            title = itemView.findViewById(R.id.title);
+            image = itemView.findViewById(R.id.image);
             image.setImageResource(R.drawable.pdf);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

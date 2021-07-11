@@ -48,7 +48,7 @@ public class addGradesActivity extends AppCompatActivity {
         grade = findViewById(R.id.gradeToPut);
 
         Intent intent = getIntent();
-        course = intent.getStringExtra(MainActivity2.EXTRA_SPECIALTY2);
+        course = intent.getStringExtra(MainTeachersActivity.EXTRA_SPECIALTY2);
 
         displayStudentsOnSpinner();
         getNumberOfCourse();

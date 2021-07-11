@@ -1,6 +1,6 @@
 package com.example.schroll;
 
-public class pdfmodel {
+public class CoursePDFModel {
     String name;
     String data;
 

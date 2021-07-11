@@ -27,7 +27,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class homeWorkDetailsActivity extends AppCompatActivity {
+public class homeWorkDetailsForStudentActivity extends AppCompatActivity {
 
     ImageView fileIcon;
     TextView courseViewText,homeWorkGrade, deadLine, homeWorkDescription;
@@ -42,7 +42,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_work_details);
+        setContentView(R.layout.activity_home_work_details_for_student);
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
@@ -67,14 +67,14 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        courseNumber = intent.getIntExtra(String.valueOf(homeWorksActivity.EXTRA_NUMBER2), -1);
-        Year = intent.getStringExtra(homeWorksActivity.EXTRA_YEAR);
+        courseNumber = intent.getIntExtra(String.valueOf(homeWorksForStudentActivity.EXTRA_NUMBER2), -1);
+        Year = intent.getStringExtra(homeWorksForStudentActivity.EXTRA_YEAR);
 
         if (Year == null) {
             Intent intent1 = getIntent();
-            Y = intent1.getIntExtra(String.valueOf(Course_01_Activity.EXTRA_NUMBER), -1);
+            Y = intent1.getIntExtra(String.valueOf(courseDetailsActivity.EXTRA_NUMBER), -1);
             courseNumber = Y;
-            Year = intent1.getStringExtra(Course_01_Activity.EXTRA_YEARS);
+            Year = intent1.getStringExtra(courseDetailsActivity.EXTRA_YEARS);
         }
 
 
@@ -164,7 +164,7 @@ public class homeWorkDetailsActivity extends AppCompatActivity {
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                                     while (!uriTask.isComplete());
-                                    Toast.makeText(homeWorkDetailsActivity.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(homeWorkDetailsForStudentActivity.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
                                 }
                             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {

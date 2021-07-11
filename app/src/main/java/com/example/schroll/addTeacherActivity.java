@@ -188,7 +188,7 @@ public class addTeacherActivity extends AppCompatActivity implements AdapterView
         fAuth.signInWithEmailAndPassword(mail, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                startActivity(new Intent(getApplicationContext(), MainActivity3.class));
+                startActivity(new Intent(getApplicationContext(), MainAdminActivity.class));
                 finish();
             }
 

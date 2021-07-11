@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.FeaturedViewHolder> {
+public class FundamentalCoursesAdapter extends RecyclerView.Adapter<FundamentalCoursesAdapter.FeaturedViewHolder> {
 
-    private ArrayList<FeaturedHelperClass> featuredLocations;
+    private ArrayList<FundamentalCoursesHelper> featuredLocations;
     private onCourseListener mOnCourseListener;
 
-    public FeaturedAdapter(ArrayList<FeaturedHelperClass> featuredLocations, onCourseListener oncourseListener) {
+    public FundamentalCoursesAdapter(ArrayList<FundamentalCoursesHelper> featuredLocations, onCourseListener oncourseListener) {
         this.featuredLocations = featuredLocations;
         this.mOnCourseListener = oncourseListener;
     }
@@ -24,17 +24,17 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
     @NonNull
     @Override
     public FeaturedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.featured_card_design,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fundamental_courses_card_design,parent,false);
        FeaturedViewHolder featuredViewHolder = new FeaturedViewHolder(view, mOnCourseListener);
         return featuredViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull FeaturedViewHolder holder, int position) {
-        FeaturedHelperClass featuredHelperClass = featuredLocations.get(position);
-        holder.courseImage.setImageResource(featuredHelperClass.getCourseImage());
-        holder.courseTitle.setText(featuredHelperClass.getCourseTitle());
-        holder.courseDesc.setText(featuredHelperClass.getCourseDesc());
+        FundamentalCoursesHelper fundamentalCoursesHelper = featuredLocations.get(position);
+        holder.courseImage.setImageResource(fundamentalCoursesHelper.getCourseImage());
+        holder.courseTitle.setText(fundamentalCoursesHelper.getCourseTitle());
+        holder.courseDesc.setText(fundamentalCoursesHelper.getCourseDesc());
     }
 
     @Override

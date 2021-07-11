@@ -51,7 +51,7 @@ public class chooseClassroomActivity extends AppCompatActivity {
         cardView3 = findViewById(R.id.cardView14);
         cardView4 = findViewById(R.id.cardView15);
         Intent intent = getIntent();
-        course = intent.getStringExtra(MainActivity2.EXTRA_SPECIALTY2);
+        course = intent.getStringExtra(MainTeachersActivity.EXTRA_SPECIALTY2);
 
         classXRef2 = fStore.collection("Users").document(userID);
 
@@ -153,7 +153,7 @@ public class chooseClassroomActivity extends AppCompatActivity {
     }
 
     public void passToEdit(String classRoomX) {
-        Intent intent = new Intent(this, editHomeWorkActivity.class);
+        Intent intent = new Intent(this, editHomeworkDetailsActivity.class);
         intent.putExtra(EXTRA_CLASSROOM, classRoomX);
         intent.putExtra(EXTRA_COURSE, course);
         startActivity(intent);

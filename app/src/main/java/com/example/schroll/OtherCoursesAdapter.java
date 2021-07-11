@@ -11,29 +11,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class OthersAdapter extends RecyclerView.Adapter<OthersAdapter.OthersViewHolder> {
+public class OtherCoursesAdapter extends RecyclerView.Adapter<OtherCoursesAdapter.OthersViewHolder> {
 
-    private ArrayList<OthersHelperClass> othersLocations;
+    private ArrayList<OtherCoursesHelper> othersLocations;
     private onCoursesListener mOnCoursesListener;
-    public OthersAdapter(ArrayList<OthersHelperClass> othersLocations, onCoursesListener oncoursesListener) {
+    public OtherCoursesAdapter(ArrayList<OtherCoursesHelper> othersLocations, onCoursesListener oncoursesListener) {
         this.othersLocations = othersLocations;
         this.mOnCoursesListener = oncoursesListener;
     }
 
     @NonNull
     @Override
-    public OthersAdapter.OthersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.others_card_design,parent,false);
-        OthersAdapter.OthersViewHolder othersViewHolder = new OthersAdapter.OthersViewHolder(view, mOnCoursesListener);
+    public OtherCoursesAdapter.OthersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.other_courses_card_design,parent,false);
+        OtherCoursesAdapter.OthersViewHolder othersViewHolder = new OtherCoursesAdapter.OthersViewHolder(view, mOnCoursesListener);
         return othersViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OthersAdapter.OthersViewHolder holder, int position) {
-        OthersHelperClass othersHelperClass = othersLocations.get(position);
-        holder.courseImage.setImageResource(othersHelperClass.getCourseImage());
-        holder.courseTitle.setText(othersHelperClass.getCourseTitle());
-        holder.courseDesc.setText(othersHelperClass.getCourseDesc());
+    public void onBindViewHolder(@NonNull OtherCoursesAdapter.OthersViewHolder holder, int position) {
+        OtherCoursesHelper otherCoursesHelper = othersLocations.get(position);
+        holder.courseImage.setImageResource(otherCoursesHelper.getCourseImage());
+        holder.courseTitle.setText(otherCoursesHelper.getCourseTitle());
+        holder.courseDesc.setText(otherCoursesHelper.getCourseDesc());
     }
 
     @Override

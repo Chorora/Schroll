@@ -22,7 +22,7 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class editHomeWorkActivity extends AppCompatActivity {
+public class editHomeworkDetailsActivity extends AppCompatActivity {
 
     EditText deadLine, hwDescription;
 
@@ -35,7 +35,7 @@ public class editHomeWorkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_home_work);
+        setContentView(R.layout.activity_edit_homework_details);
         fStore = FirebaseFirestore.getInstance();
 
         deadLine = findViewById(R.id.deadLine);
@@ -57,7 +57,7 @@ public class editHomeWorkActivity extends AppCompatActivity {
                     notFound = true;
                 }
             } else {
-                Toast.makeText(editHomeWorkActivity.this, "Error getting document", Toast.LENGTH_SHORT).show();
+                Toast.makeText(editHomeworkDetailsActivity.this, "Error getting document", Toast.LENGTH_SHORT).show();
             }
         }
     });
@@ -77,7 +77,7 @@ public class editHomeWorkActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(editHomeWorkActivity.this, "HomeWork Updated Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(editHomeworkDetailsActivity.this, "HomeWork Updated Successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

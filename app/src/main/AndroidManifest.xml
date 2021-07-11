@@ -28,13 +28,13 @@
             android:name=".addStudentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity3"
+            android:name=".MainAdminActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".courseViewActivity"
+            android:name=".courseViewForStudentsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".coursesViewActivity"
+            android:name=".coursesViewForStudentsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".uploadCourseActivity"
@@ -46,22 +46,22 @@
             android:name=".chooseClassroomActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".editHomeWorkActivity"
+            android:name=".editHomeworkDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".MainTeachersActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".pdf_list"
+            android:name=".homeworksViewForTeacherActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".exercicePDFs"
+            android:name=".homeworkViewForTeacherActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".homeWorkDetailsActivity"
+            android:name=".homeWorkDetailsForStudentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".homeWorksActivity"
+            android:name=".homeWorksForStudentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GradesActivity"
@@ -73,7 +73,7 @@
             android:name=".announcementsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Course_01_Activity"
+            android:name=".courseDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".profileActivity"
@@ -88,7 +88,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".MainStudentsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data

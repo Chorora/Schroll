@@ -28,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeaturedAdapter.onCourseListener, OthersAdapter.onCoursesListener {
+public class MainStudentsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FundamentalCoursesAdapter.onCourseListener, OtherCoursesAdapter.onCoursesListener {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static final String EXTRA_TEXT = "EXTRA_POSITION";
     public static final String EXTRA_TEXT2 = "EXTRA_POSITION2";
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MainStudentsActivity";
     public String Year;
 
     FirebaseFirestore fStore;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Toast.makeText(MainActivity.this, "Error !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainStudentsActivity.this, "Error !", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, e.toString());
                 }
 
@@ -158,13 +158,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         featuredRecycler.setHasFixedSize(true);
         featuredRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        ArrayList<FeaturedHelperClass> featuredLocations = new ArrayList<>();
+        ArrayList<FundamentalCoursesHelper> featuredLocations = new ArrayList<>();
 
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.math_logo, c1, c11));
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.science_logo, c2, c22));
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.physics_logo, c3, c33));
+        featuredLocations.add(new FundamentalCoursesHelper(R.drawable.math_logo, c1, c11));
+        featuredLocations.add(new FundamentalCoursesHelper(R.drawable.science_logo, c2, c22));
+        featuredLocations.add(new FundamentalCoursesHelper(R.drawable.physics_logo, c3, c33));
 
-        featuredAdapter = new FeaturedAdapter(featuredLocations, this);
+        featuredAdapter = new FundamentalCoursesAdapter(featuredLocations, this);
         featuredRecycler.setAdapter(featuredAdapter);
     }
 
@@ -174,20 +174,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         othersRecycler.setHasFixedSize(true);
         othersRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        ArrayList<OthersHelperClass> othersLocations = new ArrayList<>();
+        ArrayList<OtherCoursesHelper> othersLocations = new ArrayList<>();
 
-        othersLocations.add(new OthersHelperClass(R.drawable.art_logo, c4, c44));
-        othersLocations.add(new OthersHelperClass(R.drawable.islam_logo, c5, c55));
-        othersLocations.add(new OthersHelperClass(R.drawable.arabic_logo, c6, c66));
-        othersLocations.add(new OthersHelperClass(R.drawable.english_logo, c7, c77));
+        othersLocations.add(new OtherCoursesHelper(R.drawable.art_logo, c4, c44));
+        othersLocations.add(new OtherCoursesHelper(R.drawable.islam_logo, c5, c55));
+        othersLocations.add(new OtherCoursesHelper(R.drawable.arabic_logo, c6, c66));
+        othersLocations.add(new OtherCoursesHelper(R.drawable.english_logo, c7, c77));
 
-        othersAdapter = new OthersAdapter(othersLocations, this);
+        othersAdapter = new OtherCoursesAdapter(othersLocations, this);
         othersRecycler.setAdapter(othersAdapter);
     }
 
 
     public void Course_01(View v) {
-        startActivity(new Intent(this, Course_01_Activity.class));
+        startActivity(new Intent(this, courseDetailsActivity.class));
     }
 
     //To avoid closing the application on pressing Back button using navigation bar
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_homeworks:
-                startActivity(new Intent(this, homeWorksActivity.class));
+                startActivity(new Intent(this, homeWorksForStudentActivity.class));
                 break;
 
             case R.id.nav_announcements:
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onCourseClick(int position) {
         Log.d(TAG, "onCourseClick: Clicked ." + position);
         int g = position;
-        Intent intent = new Intent(this, Course_01_Activity.class);
+        Intent intent = new Intent(this, courseDetailsActivity.class);
         intent.putExtra(EXTRA_TEXT, g);
         startActivity(intent);
     }
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onCoursesClick(int position) {
         Log.d(TAG, "onCoursesClick: Clicked ." + position);
         int k = position + 3;
-        Intent intent = new Intent(this, Course_01_Activity.class);
+        Intent intent = new Intent(this, courseDetailsActivity.class);
         intent.putExtra(EXTRA_TEXT2, k);
         startActivity(intent);
     }

@@ -1,13 +1,13 @@
 package com.example.schroll;
 
-public class putPDF {
+public class putPDFdetails {
     public String name;
     public static String url;
 
-    public  putPDF(){
+    public putPDFdetails(){
     }
 
-    public putPDF(String name, String url) {
+    public putPDFdetails(String name, String url) {
         this.name = name;
         this.url = url;
     }

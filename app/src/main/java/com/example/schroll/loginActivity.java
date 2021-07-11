@@ -65,18 +65,18 @@ public class loginActivity extends AppCompatActivity {
                         Type = documentSnapshot.getString("Type");
 
                         if(Type.equals("Student")){
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainStudentsActivity.class));
                             finish();
                         }
                         else if(Type.equals("Teacher")){
                             specialty = documentSnapshot.getString("Specialty");
-                            Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                            Intent intent = new Intent(getApplicationContext(), MainTeachersActivity.class);
                             intent.putExtra(EXTRA_SPECIALTY, specialty);
                             startActivity(intent);
                             finish();
                         }
                         else if (Type.equals("Admin")){
-                            startActivity(new Intent(getApplicationContext(), MainActivity3.class));
+                            startActivity(new Intent(getApplicationContext(), MainAdminActivity.class));
                             finish();}
                     }
                 }
@@ -141,17 +141,17 @@ public class loginActivity extends AppCompatActivity {
 
                 Type = documentSnapshot.getString("Type");
                if (Type.equals("Student")){
-                   startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                   startActivity(new Intent(getApplicationContext(), MainStudentsActivity.class));
                    finish();}
                if(Type.equals("Teacher")) {
                    specialty = documentSnapshot.getString("Specialty");
-                   Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                   Intent intent = new Intent(getApplicationContext(), MainTeachersActivity.class);
                    intent.putExtra(EXTRA_TYPE, Type);
                    intent.putExtra(EXTRA_SPECIALTY, specialty);
                    startActivity(intent);
                    finish();}
                 if (Type.equals("Admin")){
-                    startActivity(new Intent(getApplicationContext(), MainActivity3.class));
+                    startActivity(new Intent(getApplicationContext(), MainAdminActivity.class));
                     finish();}
             }
         });

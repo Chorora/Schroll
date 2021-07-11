@@ -1,10 +1,11 @@
 package com.example.schroll;
 
-public class OthersHelperClass {
+public class FundamentalCoursesHelper {
+
     int  courseImage;
     String courseTitle, courseDesc;
 
-    public OthersHelperClass(int courseImage, String courseTitle, String courseDesc) {
+    public FundamentalCoursesHelper(int courseImage, String courseTitle, String courseDesc) {
         this.courseImage = courseImage;
         this.courseTitle = courseTitle;
         this.courseDesc = courseDesc;
@@ -21,4 +22,6 @@ public class OthersHelperClass {
     public String getCourseDesc() {
         return courseDesc;
     }
+
+
 }

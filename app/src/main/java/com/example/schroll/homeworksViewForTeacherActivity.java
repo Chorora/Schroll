@@ -28,10 +28,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class pdf_list extends AppCompatActivity {
+public class homeworksViewForTeacherActivity extends AppCompatActivity {
     public static final String EXTRA_TITLE = "com.example.Application.schroll.EXTRA_TITLE";
     public static final String EXTRA_COURSE = "EXTRA_COURSE";
-    public static ArrayList<pdfmodel > documentArrayList;
+    public static ArrayList<HomeworkPDFModel> documentArrayList;
     FirebaseFirestore fStore;
     FirebaseAuth fAuth;
     DocumentReference teacherRef, classXRef2;
@@ -50,11 +50,11 @@ public class pdf_list extends AppCompatActivity {
         userID = fAuth.getCurrentUser().getUid();
         teacherRef = fStore.collection("Users").document(userID);
 
-        setContentView(R.layout.activity_pdf_list);
+        setContentView(R.layout.activity_homeworks_view_for_teacher);
         progress=findViewById(R.id.progress);
         progress.setVisibility(View.VISIBLE);
         Intent intent = getIntent();
-        course = intent.getStringExtra(MainActivity2.EXTRA_SPECIALTY1);
+        course = intent.getStringExtra(MainTeachersActivity.EXTRA_SPECIALTY1);
 
         classXRef2 = fStore.collection("Users").document(userID);
 
@@ -68,13 +68,13 @@ public class pdf_list extends AppCompatActivity {
                     if(classRoomXD[j].equals("")){
                         classRoomXD[j] = null;
                     }
-                    PDFList(classRoomXD[j]);
+                    homeworksPDFList(classRoomXD[j]);
                 }
             }
         });
     }
 
-    public void PDFList(String classRoomXD) {
+    public void homeworksPDFList(String classRoomXD) {
         documents = FirebaseStorage.getInstance();
         StorageReference listRef = documents.getReference().child("Pdf Uploads/" +classRoomXD +"/"  +course +"/");
         listRef.listAll()
@@ -89,7 +89,7 @@ public class pdf_list extends AppCompatActivity {
                             title = listResult.getItems().get(j).getName();
                             array[j] = title;
 
-                            pdfmodel Model = new pdfmodel();
+                            HomeworkPDFModel Model = new HomeworkPDFModel();
                             documentArrayList = new ArrayList<>();
 
                             String dt= listResult.getItems().get(j).getName();
@@ -105,13 +105,13 @@ public class pdf_list extends AppCompatActivity {
                                                 recyclerView = findViewById(R.id.recyclerview1);
                                                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
-                                                PdfAdapter  adapter = new PdfAdapter (getApplicationContext(), documentArrayList);
+                                                HomeworkPDFAdapter adapter = new HomeworkPDFAdapter(getApplicationContext(), documentArrayList);
                                                 recyclerView.setAdapter(adapter);
 
-                                                adapter.setOnItemClickListener(new PdfAdapter.OnItemClickListener() {
+                                                adapter.setOnItemClickListener(new HomeworkPDFAdapter.OnItemClickListener() {
                                                     @Override
                                                     public void onItemClick(int pos, View v) {
-                                                        Intent intent = new Intent(getApplicationContext(), exercicePDFs.class);
+                                                        Intent intent = new Intent(getApplicationContext(), homeworkViewForTeacherActivity.class);
                                                         intent.putExtra("pos", pos);
                                                         intent.putExtra(EXTRA_COURSE, course);
                                                         String titl = array[pos];

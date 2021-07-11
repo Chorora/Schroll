@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainTeachersActivity extends AppCompatActivity {
 
     String specialty;
     public static final String EXTRA_SPECIALTY1 = "EXTRA_SPECIALTY1";
@@ -23,7 +23,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void onViewClick(View v){
-        Intent intent = new Intent(getApplicationContext(), pdf_list.class);
+        Intent intent = new Intent(getApplicationContext(), homeworksViewForTeacherActivity.class);
         intent.putExtra(EXTRA_SPECIALTY1, specialty);
         startActivity(intent);
     }

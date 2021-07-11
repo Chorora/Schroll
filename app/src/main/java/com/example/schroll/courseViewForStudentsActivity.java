@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class courseViewActivity extends AppCompatActivity {
+public class courseViewForStudentsActivity extends AppCompatActivity {
 
     FirebaseStorage fStorage;
     StorageReference fStorageRef;
@@ -32,7 +32,7 @@ public class courseViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_view);
+        setContentView(R.layout.activity_course_view_for_students);
         fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
         gradeHW = findViewById(R.id.hwGrade);
@@ -42,17 +42,17 @@ public class courseViewActivity extends AppCompatActivity {
         lesson_index = getIntent().getIntExtra("pos", 0);
         mHandler = new Handler();
         handler = new Handler();
-        title = coursesViewActivity.documentsArrayList.get(lesson_index).getData();
+        title = coursesViewForStudentsActivity.documentsArrayList.get(lesson_index).getData();
 
         Intent intent = getIntent();
-        courseName = intent.getStringExtra(coursesViewActivity.EXTRA_COURSE2);
-        classCode = intent.getStringExtra(coursesViewActivity.EXTRA_CLASSCODE2);
+        courseName = intent.getStringExtra(coursesViewForStudentsActivity.EXTRA_COURSE2);
+        classCode = intent.getStringExtra(coursesViewForStudentsActivity.EXTRA_CLASSCODE2);
 
         fStorage = FirebaseStorage.getInstance();
         fStorageRef = fStorage.getReference().child("Course Uploads/" + classCode + "/" + courseName + "/");
         final long ONE_MEGABYTE = 1024 * 1024;
 
-        fStorageRef.child(coursesViewActivity.documentsArrayList
+        fStorageRef.child(coursesViewForStudentsActivity.documentsArrayList
                 .get(lesson_index).getData()).getBytes(ONE_MEGABYTE)
                 .addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
